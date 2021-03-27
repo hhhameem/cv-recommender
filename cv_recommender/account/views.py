@@ -4,10 +4,12 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import CreateUserForm, LoginUserForm
-
+from django.contrib.auth.decorators import login_required
+from custom_decorators.custom_decorator import unauthenticated_user, allowed_users
 # Create your views here.
 
 
+@unauthenticated_user
 def register(request):
     if request.method == 'POST':
         user_registration_form = CreateUserForm(request.POST)
@@ -31,6 +33,7 @@ def register(request):
     return render(request, 'registration/signup.html', {'user_registration_form': user_registration_form})
 
 
+@unauthenticated_user
 def userlogin(request):
     if request.method == 'POST':
         login_form = LoginUserForm(request.POST)
@@ -57,14 +60,19 @@ def userlogin(request):
     return render(request, 'registration/login.html', {'login_form': login_form})
 
 
+@login_required(login_url='login')
 def userlogout(request):
     logout(request)
     return redirect('login')
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_group=['applicant'])
 def applicantdashboard(request):
     return render(request, 'registration/applicant-dashboard.html')
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_group=['recruiter'])
 def recruiterdashboard(request):
     return render(request, 'registration/applicant-dashboard.html')
