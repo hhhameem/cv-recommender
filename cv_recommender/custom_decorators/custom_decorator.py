@@ -8,13 +8,15 @@ def unauthenticated_user(view_function):
         if request.user.is_authenticated:
             if request.user.groups.exists():
                 group = request.user.groups.all()[0].name
-
+                print('group:', group)
+            print('group1:', group)
             if group == 'applicant':
                 return redirect('applicantdashboard')
             if group == 'recruiter':
                 return redirect('recruiterdashboard')
         else:
             return view_function(request, *args, **kwargs)
+
     return wrapper_function
 
 
@@ -24,6 +26,7 @@ def allowed_users(allowed_group=[]):
             group = None
             if request.user.groups.exists():
                 group = request.user.groups.all()[0].name
+            print('group2:', group)
             if group in allowed_group:
                 return view_function(request, *args, **kwargs)
             else:
@@ -35,4 +38,5 @@ def allowed_users(allowed_group=[]):
                 # return HttpResponse("If you are not Logged In, Login first to view this page.\
                 # if you are logged In already You are not ALLOWED to view this page.")
         return wrapper_function
+
     return decorator
