@@ -66,10 +66,9 @@
         <li class="dropdown"> <a href="contact.html">Contact</a> </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="br-right"><a class="btn-signup red-btn" href="javascript:void(0)" data-toggle="modal" data-target="#signin"><i class="login-icon ti-user"></i>Login</a></li>
         <li class="dropdown sign-up"> 
-		  <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href="signup.html"> 
-			<img src="assets/img/user-profile.png" class="img-responsive img-circle" alt="">{{ request.user }} 
+		  <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+			<img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">{{ request.user }} 
 		  </a>
           <ul class="dropdown-menu animated fadeOutUp">
             <li><a href="browse-job.html">Browse Jobs</a></li>
@@ -106,40 +105,30 @@
 		<div class="dashboard_nav_item">
 		  <ul>
 		    <li class="active"><a href="dashboard.html"><i class="login-icon ti-dashboard"></i> Dashboard</a></li>
-			<li><a href="#"><i class="login-icon ti-user"></i> Edit Profile</a></li>
-			<li><a href="{% url 'password_change' %}"><i class="login-icon ti-key"></i> Change Password</a></li>
-			<li><a href="{% url 'logout' %}"><i class="login-icon ti-power-off"></i> Logout</a></li>
+        <li><a href="#"><i class="login-icon ti-user"></i> Edit Profile</a></li>
+        <li><a href="{% url 'password_change' %}"><i class="login-icon ti-key"></i> Change Password</a></li>
+        <li><a href="{% url 'logout' %}"><i class="login-icon ti-power-off"></i> Logout</a></li>
 		  </ul>
 		</div>
 	  </div>
 	  <div class="col-md-9">
         <div id="dashboard_listing_blcok">
-		  <div class="col-md-4 col-sm-4">
+		  <div class="col-md-6 col-sm-6">
 			<div class="statusbox">
-			  <h3>Balance Credit</h3>
+			  <h3>Jobs Applied Today</h3>
 			  <div class="statusbox-content">
-				<p class="ic_status_item ic_col_one"><i class="fa fa-balance-scale"></i></p>
-				<h2>$215,00</h2>
+				<p class="ic_status_item ic_col_one"><i class="fa fa-briefcase"></i></p>
+				<h2>0</h2>
 				<span>Updated 02 Jan 2021</span> 
 			  </div>
 			</div>
 		  </div>
-		  <div class="col-md-4 col-sm-4">
+		  <div class="col-md-6 col-sm-6">
 			<div class="statusbox">
-			  <h3>View Progress</h3>
+			  <h3>Total Jobs Applied</h3>
 			  <div class="statusbox-content">
-				<p class="ic_status_item ic_col_two"><i class="fa fa-line-chart"></i></p>
-				<h2>$280,00</h2>
-				<span>Updated 02 Jan 2021</span> 
-			  </div>
-			</div>
-		  </div>
-		  <div class="col-md-4 col-sm-4">
-			<div class="statusbox">
-			  <h3>View Payments</h3>
-			  <div class="statusbox-content">
-				<p class="ic_status_item ic_col_three"><i class="fa fa-cc-paypal"></i></p>
-				<h2>$350,00</h2>
+				<p class="ic_status_item ic_col_one"><i class="fa fa-briefcase"></i></p>
+				<h2>3</h2>
 				<span>Updated 02 Jan 2021</span> 
 			  </div>
 			</div>

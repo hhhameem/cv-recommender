@@ -5,11 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import CreateUserForm, LoginUserForm
 from django.contrib.auth.decorators import login_required
-from custom_decorators.custom_decorator import unauthenticated_user, allowed_users
+from custom_decorators.custom_decorator import allowed_users
 # Create your views here.
 
 
-@unauthenticated_user
+# @unauthenticated_user
 def register(request):
     if request.method == 'POST':
         user_registration_form = CreateUserForm(request.POST)
@@ -26,14 +26,14 @@ def register(request):
 
             messages.success(request, 'Registration successfull for User Type: '
                              + user_type + 'and username ' + user_registration_form.cleaned_data['username'])
-            return redirect('account:login')
+            return redirect('login')
     else:
         user_registration_form = CreateUserForm()
 
     return render(request, 'registration/signup.html', {'user_registration_form': user_registration_form})
 
 
-@unauthenticated_user
+# @unauthenticated_user
 def userlogin(request):
     if request.method == 'POST':
         login_form = LoginUserForm(request.POST)
