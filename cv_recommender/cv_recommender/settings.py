@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 from custom_decorators.email_credential import my_mail, my_pass
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -129,9 +130,15 @@ STATIC_URL = '/static/'
 
 
 # E-Mail configurations
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = my_mail
 EMAIL_HOST_PASSWORD = my_pass
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+# serving media files in development server
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

@@ -12,12 +12,6 @@
 <link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}" />
 
 <!-- CSS -->
-{% comment %} <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
-<link href="assets/plugins/icons/css/icons.css" rel="stylesheet">
-<link href="assets/plugins/animate/animate.css" rel="stylesheet">
-<link href="assets/plugins/bootstrap/css/bootsnav.css" rel="stylesheet">
-<link href="assets/css/style.css" rel="stylesheet">
-<link href="assets/css/responsive.css" rel="stylesheet"> {% endcomment %}
 <link rel="stylesheet" href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}">
 <link href="{% static 'assets/plugins/bootstrap/css/bootsnav.css' %}" rel="stylesheet">
 <link href="{% static 'assets/plugins/icons/css/icons.css' %}" rel="stylesheet">
@@ -115,7 +109,7 @@
               </div>
               <div class="form-group">
                 <a href="{% url 'register' %}" title="Forget" class="fl-left text-success">Click Here To Register</a>
-                <a href="{% url 'password_reset' %}" title="Forget" class="fl-right text-success">Forgot Password</a>  
+                <a href="{% url 'password_reset' %}" title="Forget" class="fl-right text-success">Forgot Password?</a>  
 			        </div>
               <div class="form-group text-center">
                 <input type="hidden" name="next" value="{{ next }}" />
@@ -150,7 +144,7 @@
               </div>
               <div class="form-group">
                 <a href="{% url 'register' %}" title="Forget" class="fl-left text-success">Click Here To Register</a>
-                <a href="{% url 'password_reset' %}" title="Forget" class="fl-right text-success">Forgot Password</a>  
+                <a href="{% url 'password_reset' %}" title="Forget" class="fl-right text-success">Forgot Password?</a>  
 			        </div>
               <div class="form-group text-center">
                 <button type="submit" class="btn theme-btn full-width btn-m">LogIn</button>

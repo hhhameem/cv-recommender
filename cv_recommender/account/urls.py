@@ -24,5 +24,9 @@ urlpatterns = [
          name='applicantdashboard'),
     path('recruiterdashboard/', views.recruiterdashboard,
          name='recruiterdashboard'),
+    path('applicantdashboard/profile-edit/',
+         views.recruiteredit, name='editapplicantprofile'),
+    path('recruiterdashboard/profile-edit/',
+         views.applicantedit, name='editrecruiterprofile'),
 
 ]
