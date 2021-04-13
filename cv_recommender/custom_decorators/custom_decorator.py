@@ -28,17 +28,16 @@ def allowed_users(allowed_group=[]):
             group = None
             if request.user.groups.exists():
                 group = request.user.groups.all()[0].name
-            print('group2:', group)
-            if group in allowed_group:
-                return view_function(request, *args, **kwargs)
+            # print('group2:', group)
+                if group in allowed_group:
+                    return view_function(request, *args, **kwargs)
+                else:
+                    if group == 'applicant':
+                        return redirect('applicantdashboard')
+                    if group == 'recruiter':
+                        return redirect('recruiterdashboard')
             else:
-                if group == 'applicant':
-                    return redirect('applicantdashboard')
-                if group == 'recruiter':
-                    return redirect('recruiterdashboard')
-
-                # return HttpResponse("If you are not Logged In, Login first to view this page.\
-                # if you are logged In already You are not ALLOWED to view this page.")
+                return redirect('login')
         return wrapper_function
 
     return decorator

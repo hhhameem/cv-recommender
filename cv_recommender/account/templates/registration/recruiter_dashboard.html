@@ -13,7 +13,6 @@
 
 <!-- CSS -->
 <link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-<link href="{% static 'assets/plugins/bootstrap/css/bootsnav.css' %}" rel="stylesheet">
 <link href="{% static 'assets/plugins/icons/css/icons.css' %}" rel="stylesheet">
 <link href="{% static 'assets/plugins/animate/animate.css' %}" rel="stylesheet">
 <link href="{% static 'assets/plugins/aos-master/aos.css' %}" rel="stylesheet">
@@ -22,7 +21,6 @@
 <link href="{% static 'assets/plugins/date-dropper/datedropper.css' %}" rel="stylesheet">
 <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
 <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet">
-
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet"> 
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap" rel="stylesheet"> 
@@ -31,74 +29,44 @@
 <div class="page_preloader"></div>
 
 <!-- ======================= Start Navigation ===================== -->
-  <nav class="navbar navbar-default navbar-mobile navbar-fixed light bootsnav">
-    <div class="container"> 
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
-        <a class="navbar-brand" href="index.html"> <img src="{% static 'assets/img/logo.png' %}" class="logo logo-display" alt=""> 
-          <img src="{% static 'assets/img/logo.png' %}" class="logo logo-scrolled" alt="">
-        </a> 
-      </div>
-      <div class="collapse navbar-collapse" id="navbar-menu">
-        {% if request.user.recruiter %}
-          <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
-            <li class="dropdown"> <a href="index.html">Dashboard</a> </li>
-            <li class="dropdown"> <a href="contact.html">Post Job</a> </li>
-            <li class="dropdown"> <a href="contact.html">View Jobs</a> </li>
-          </ul>
-        {% elif request.user.applicant %}
-        <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
-            <li class="dropdown"> <a href="index.html">Dashboard</a> </li>
-            <li class="dropdown"> <a href="contact.html">Post Job</a> </li>
-            <li class="dropdown"> <a href="contact.html">View Jobs</a> </li>
-            <li class="dropdown"> <a href="contact.html">Applicant</a> </li>
-          </ul>
-        {% endif %}
-          
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown sign-up">
-          <!-- ================ Navbar profile photo ======================= -->
-          {% if request.user.recruiter %}
-            {% if request.user.recruiter.image %}
-              <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
-                <img src="{{ request.user.recruiter.image.url }}" class="img-responsive img-circle" alt="">
-                {{ request.user }} 
-              </a>
-            {% else %}
-              <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
-                <img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">
-                {{ request.user }} 
-              </a>
-            {% endif %}
-            <!-- ================ End Navbar profile photo ======================= -->
-            <ul class="dropdown-menu animated fadeOutUp">
-              <li><a href="{% url 'recruiterdashboard' %}">Dashboard</a></li>
-              <li><a href="{% url 'logout' %}">Log Out</a></li>
-            </ul>
-          {% elif request.user.applicant %}
-            {% if request.user.applicant.image %}
-              <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
-                <img src="{{ request.user.applicant.image.url }}" class="img-responsive img-circle" alt="">
-                {{ request.user }} 
-              </a>
-            {% else %}
-              <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
-                <img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">
-                {{ request.user }} 
-              </a>
-            {% endif %}
-            <!-- ================ End Navbar profile photo ======================= -->
-            <ul class="dropdown-menu animated fadeOutUp">
-              <li><a href="{% url 'applicantdashboard' %}">Dashboard</a></li>
-              <li><a href="{% url 'logout' %}">Log Out</a></li>
-            </ul>
+<nav class="navbar navbar-default navbar-mobile navbar-fixed light bootsnav">
+  <div class="container"> 
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+      <a class="navbar-brand" href="index.html"> <img src="{% static 'assets/img/logo.png' %}" class="logo logo-display" alt=""> 
+        <img src="{% static 'assets/img/logo.png' %}" class="logo logo-scrolled" alt="">
+      </a> 
+	  </div>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
+        <li class="dropdown"> <a href="index.html">Dashboard</a> </li>
+        <li class="dropdown"> <a href="contact.html">Post Job</a> </li>
+        <li class="dropdown"> <a href="contact.html">View Jobs</a> </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown sign-up">
+        <!-- ================ Navbar profile photo ======================= -->
+          {% if request.user.recruiter.image %}
+            <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+              <img src="{{ request.user.recruiter.image.url }}" class="img-responsive img-circle" alt="">
+              {{ request.user }} 
+            </a>
+          {% else %}
+            <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+              <img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">
+              {{ request.user }} 
+            </a>
           {% endif %}
-            
-          </li>
-        </ul>
-      </div>
+          <!-- ================ End Navbar profile photo ======================= -->
+          <ul class="dropdown-menu animated fadeOutUp">
+            <li><a href="{% url 'recruiterdashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 <!-- ======================= End Navigation ===================== --> 
 
 <!-- ======================= Page Title ===================== -->
@@ -118,47 +86,47 @@
     <div class="row"> 
       <div class="col-md-3">
 		<div id="leftcol_item">
-		  {% if request.user.applicant %}
-          {% if request.user.applicant.image  %}
-            <div class="user_dashboard_pic"> <img alt="user photo" src="{{ request.user.applicant.image.url }}">
-            <span class="user-photo-action">{{ request.user }}</span>
-            </div>
-          {% else %}
-            <div class="user_dashboard_pic"> <img alt="user photo" src="{% static 'assets/img/user-profile.png' %}"> <span
-              class="user-photo-action">{{ request.user }}</span>
-            </div>
-          {% endif %}
-        {% elif request.user.recruiter %}
-          {% if request.user.recruiter.image  %}
-            <div class="user_dashboard_pic"> <img alt="user photo" src="{{ request.user.recruiter.image.url }}"> <span
-              class="user-photo-action">{{ request.user }}</span>
-            </div>
-          {% else %}
-            <div class="user_dashboard_pic"> <img alt="user photo" src="{% static 'assets/img/user-profile.png' %}"> <span
-              class="user-photo-action">{{ request.user }}</span>
-            </div>
-          {% endif %}
-        {% endif %}
+		  {% if request.user.recruiter.image  %}
+        <div class="user_dashboard_pic"> <img alt="user photo" src="{{ request.user.recruiter.image.url }}"> <span
+          class="user-photo-action">{{ request.user }}</span>
+        </div>
+      {% else %}
+        <div class="user_dashboard_pic"> <img alt="user photo" src="{% static 'assets/img/user-profile.png' %}"> <span
+          class="user-photo-action">{{ request.user }}</span>
+        </div>
+      {% endif %}
 		</div>
 		<div class="dashboard_nav_item">
 		  <ul>
-        {% if request.user.recruiter %}
-          <li><a href="{% url 'recruiterdashboard' %}"><i class="login-icon ti-dashboard"></i> Dashboard</a></li>
-          <li><a href="{% url 'editrecruiterprofile' %}"><i class="login-icon ti-user"></i> Edit Profile</a></li>
-          <li class="active"><a href="{% url 'password_change' %}"><i class="login-icon ti-key"></i> Change Password</a></li>
-          <li><a href="{% url 'logout' %}"><i class="login-icon ti-power-off"></i> Logout</a></li>
-        {% elif request.user.applicant %}
-          <li><a href="{% url 'applicantdashboard' %}"><i class="login-icon ti-dashboard"></i> Dashboard</a></li>
-          <li><a href="{% url 'editapplicantprofile' %}"><i class="login-icon ti-user"></i> Edit Profile</a></li>
-          <li class="active"><a href="{% url 'password_change' %}"><i class="login-icon ti-key"></i> Change Password</a></li>
-          <li><a href="{% url 'logout' %}"><i class="login-icon ti-power-off"></i> Logout</a></li>
-        {% endif %}
-        </ul>
+		    <li class="active"><a href="{% url 'recruiterdashboard' %}"><i class="login-icon ti-dashboard"></i> Dashboard</a></li>
+        <li><a href="{% url 'editrecruiterprofile' %}"><i class="login-icon ti-user"></i> Edit Profile</a></li>
+        <li><a href="{% url 'password_change' %}"><i class="login-icon ti-key"></i> Change Password</a></li>
+        <li><a href="{% url 'logout' %}"><i class="login-icon ti-power-off"></i> Logout</a></li>
+		  </ul>
 		</div>
 	  </div>
 	  <div class="col-md-9">
-		<div class="profile_detail_block">
-			<p>Done</p>
+        <div id="dashboard_listing_blcok">
+		  <div class="col-md-6 col-sm-6">
+			<div class="statusbox">
+			  <h3>Jobs Applied Today</h3>
+			  <div class="statusbox-content">
+				<p class="ic_status_item ic_col_one"><i class="fa fa-briefcase"></i></p>
+				<h2>0</h2>
+				<span>Updated 02 Jan 2021</span> 
+			  </div>
+			</div>
+		  </div>
+		  <div class="col-md-6 col-sm-6">
+			<div class="statusbox">
+			  <h3>Total Jobs Applied</h3>
+			  <div class="statusbox-content">
+				<p class="ic_status_item ic_col_one"><i class="fa fa-briefcase"></i></p>
+				<h2>3</h2>
+				<span>Updated 02 Jan 2021</span> 
+			  </div>
+			</div>
+		  </div>
 		</div>
       </div>	  
     </div>
@@ -250,7 +218,7 @@
 <script src="{% static 'assets/plugins/bootstrap/js/bootstrap-wysihtml5.js' %}"></script> 
 <script src="{% static 'assets/plugins/aos-master/aos.js' %}"></script> 
 <script src="{% static 'assets/plugins/nice-select/js/jquery.nice-select.min.js' %}"></script> 
-<script src="{% static 'assets/js/custom.js' %}"></script>
+<script src="{% static 'assets/js/custom.js' %}"></script> 
 <script>
 	$(window).load(function() {
 	  $(".page_preloader").fadeOut("slow");;

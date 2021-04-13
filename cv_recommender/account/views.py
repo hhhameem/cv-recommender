@@ -81,13 +81,7 @@ def applicantdashboard(request):
 @login_required(login_url='login')
 @allowed_users(allowed_group=['recruiter'])
 def recruiterdashboard(request):
-    return render(request, 'registration/applicant-dashboard.html')
-
-
-@login_required(login_url='login')
-@allowed_users(allowed_group=['applicant'])
-def applicantEdit(request):
-    pass
+    return render(request, 'registration/recruiter_dashboard.html')
 
 
 @login_required(login_url='login')

@@ -22,8 +22,7 @@ class Recruiter(models.Model):
     phone = models.CharField(max_length=11, blank=True, null=True)
     organization = models.CharField(max_length=100)
     details = models.TextField()
-    image = models.ImageField(upload_to='users/%Y/%m/%d/',
-                              blank=True)
+    image = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return f'Profile for user {self.user.username}'
@@ -41,7 +40,7 @@ class Applicant(models.Model):
     dob = models.DateField(blank=True, null=True)
     language = models.CharField(max_length=100)
     website = models.URLField()
-    image = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True)
+    image = models.ImageField(blank=True, null=True)
     category = models.CharField(max_length=100, choices=JOB_CATEGORY,
                                 default='Web Developer')
 

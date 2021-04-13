@@ -12,4 +12,4 @@ class RecruiterAdmin(admin.ModelAdmin):
 @admin.register(Applicant)
 class ApplicantAdmin(admin.ModelAdmin):
     list_display = ['user', 'phone', 'work_exp',
-                    'summary', 'gender', 'address', 'dob', 'language', 'website', 'category']
+                    'summary', 'gender', 'address', 'dob', 'language', 'website', 'category', 'image']

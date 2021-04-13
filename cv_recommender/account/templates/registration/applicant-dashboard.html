@@ -27,6 +27,7 @@
 </head>
 <body class="utf_skin_area">
 <div class="page_preloader"></div>
+
 <!-- ======================= Start Navigation ===================== -->
 <nav class="navbar navbar-default navbar-mobile navbar-fixed light bootsnav">
   <div class="container"> 
@@ -67,14 +68,24 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown sign-up"> 
-		  <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
-			<img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">{{ request.user }} 
-		  </a>
+          <!-- ================ Navbar profile photo ======================= -->
+          {% if request.user.applicant.image %}
+            <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+              <img src="{{ request.user.applicant.image.url }}" class="img-responsive img-circle" alt="">
+              {{ request.user }} 
+            </a>
+          {% else %}
+            <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+              <img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">
+              {{ request.user }} 
+            </a>
+          {% endif %}
+          <!-- ================ End Navbar profile photo ======================= -->
           <ul class="dropdown-menu animated fadeOutUp">
-            <li><a href="browse-job.html">Browse Jobs</a></li>
+            <li><a href="{% url 'applicantdashboard' %}">Dashboard</a></li>
             <li><a href="create-company.html">Create Company</a></li>
             <li><a href="create-resume.html">Create Resume</a></li>
-            <li><a href="signup.html">Sign Out</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
           </ul>
         </li>
       </ul>
@@ -100,17 +111,28 @@
     <div class="row"> 
       <div class="col-md-3">
 		<div id="leftcol_item">
-		  <div class="user_dashboard_pic"> <img alt="user photo" src="{% static 'assets/img/user-profile.png' %}"> <span class="user-photo-action">Alden Smith</span> </div>
+    <!-- ================ User Dashboard profile photo ======================= -->
+		  {% if request.user.applicant.image  %}
+        <div class="user_dashboard_pic"> <img alt="user photo" src="{{ request.user.applicant.image.url }}">
+          <span class="user-photo-action">{{ request.user }}</span>
+        </div>
+      {% else %}
+        <div class="user_dashboard_pic"> <img alt="user photo" src="{% static 'assets/img/user-profile.png' %}">
+          <span class="user-photo-action">{{ request.user }}</span>
+        </div>
+      {% endif %}
+      <!-- ================End of User Dashboard profile photo ======================= -->
 		</div>
 		<div class="dashboard_nav_item">
 		  <ul>
-		    <li class="active"><a href="dashboard.html"><i class="login-icon ti-dashboard"></i> Dashboard</a></li>
-        <li><a href="{% url 'editrecruiterprofile' %}"><i class="login-icon ti-user"></i> Edit Profile</a></li>
+		    <li class="active"><a href="{% url 'applicantdashboard' %}"><i class="login-icon ti-dashboard"></i> Dashboard</a></li>
+        <li><a href="{% url 'editapplicantprofile' %}"><i class="login-icon ti-user"></i> Edit Profile</a></li>
         <li><a href="{% url 'password_change' %}"><i class="login-icon ti-key"></i> Change Password</a></li>
         <li><a href="{% url 'logout' %}"><i class="login-icon ti-power-off"></i> Logout</a></li>
 		  </ul>
 		</div>
 	  </div>
+
 	  <div class="col-md-9">
         <div id="dashboard_listing_blcok">
 		  <div class="col-md-6 col-sm-6">
@@ -134,34 +156,13 @@
 			</div>
 		  </div>
 		</div>
-      </div>	  
+
+    </div>	  
     </div>
   </div>
 </section>
 <!-- ================ End Profile Settings ======================= --> 
 
-<section class="newsletter theme-bg" style="background-image:url(assets/img/bg-new.png)">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="heading light">
-          <h2>Subscribe Our Newsletter!</h2>
-          <p>Lorem Ipsum is simply dummy text printing and type setting industry Lorem Ipsum been industry standard dummy text ever since when unknown printer took a galley.</p>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">
-        <div class="newsletter-box text-center">
-          <div class="input-group"> <span class="input-group-addon"><span class="ti-email theme-cl"></span></span>
-            <input type="text" class="form-control" placeholder="Enter your Email...">
-          </div>
-          <button type="button" class="btn theme-btn btn-radius btn-m">Subscribe</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ================= footer start ========================= -->
 <footer class="footer">
@@ -235,76 +236,6 @@
   </div>
 </footer>
 
-<!-- Signup Code -->
-{% comment %} <div class="modal fade" id="signin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content" id="myModalLabel1">
-      <div class="modal-body">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs nav-advance theme-bg" role="tablist">
-          <li class="nav-item active"> <a class="nav-link" data-toggle="tab" href="#employer" role="tab"> <i class="ti-user"></i> Job Seeker</a> </li>
-          <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#candidate" role="tab"> <i class="ti-user"></i> Job Provider</a> </li>
-        </ul>
-        <!-- Nav tabs --> 
-        <!-- Tab panels -->
-        <div class="tab-content"> 
-          <!-- Employer Panel 1-->
-          <div class="tab-pane fade in show active" id="employer" role="tabpanel">
-            <form>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Email Address">
-              </div>
-              <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password">
-              </div>
-              <div class="form-group"> <span class="custom-checkbox">
-                <input type="checkbox" id="4">
-                <label for="4"></label>
-                Remember Me </span> <a href="#" title="Forget" class="fl-right">Forgot Password?</a> 
-			  </div>
-              <div class="form-group text-center">
-                <button type="button" class="btn theme-btn full-width btn-m">LogIn</button>
-              </div>
-            </form>
-			<div class="log-option"><span>OR</span></div>
-			<div class="row">
-              <div class="col-md-6"> <a href="#" title="" class="fb-log-btn log-btn"><i class="fa fa-facebook"></i> Facebook</a> </div>
-              <div class="col-md-6"> <a href="#" title="" class="gplus-log-btn log-btn"><i class="fa fa-google"></i> Google</a> </div>
-            </div>
-          </div>
-          <!--/.Panel 1--> 
-          
-          <!-- Candidate Panel 2-->
-          <div class="tab-pane fade" id="candidate" role="tabpanel">
-            <form>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Email Address">
-              </div>
-              <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password">
-              </div>
-              <div class="form-group"> <span class="custom-checkbox">
-                <input type="checkbox" id="44">
-                <label for="44"></label>
-                Remember Me </span> <a href="#" title="Forget" class="fl-right">Forgot Password?</a> 
-			  </div>
-              <div class="form-group text-center">
-                <button type="button" class="btn theme-btn full-width btn-m">LogIn</button>
-              </div>
-            </form>
-			<div class="log-option"><span>OR</span></div>
-			<div class="row">
-              <div class="col-md-6"> <a href="#" title="" class="fb-log-btn log-btn"><i class="fa fa-facebook"></i> Facebook</a> </div>
-              <div class="col-md-6"> <a href="#" title="" class="gplus-log-btn log-btn"><i class="fa fa-google"></i> Google</a> </div>
-            </div>
-          </div>
-        </div>
-        <!-- Tab panels --> 
-      </div>
-    </div>
-  </div>
-</div> {% endcomment %}
-<!-- End Signup -->
 <div><a href="#" class="scrollup">Scroll</a></div>
 
 <!-- Jquery js--> 
