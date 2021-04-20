@@ -39,9 +39,9 @@
 	  </div>
     <div class="collapse navbar-collapse" id="navbar-menu">
       <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
-        <li class="dropdown"> <a href="index.html">Dashboard</a> </li>
-        <li class="dropdown"> <a href="contact.html">Post Job</a> </li>
-        <li class="dropdown"> <a href="contact.html">View Jobs</a> </li>
+        <li class="selected"> <a href="{% url 'recruiterdashboard' %}">Dashboard</a> </li>
+        <li> <a href="{% url 'postjob' %}">Post Job</a> </li>
+        <li> <a href="contact.html">View Jobs</a> </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown sign-up">

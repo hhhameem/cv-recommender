@@ -1,0 +1,385 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="" lang="zxx">
+  <head>
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>:: Escort - Job Portal HTML Template ::</title>
+
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}" />
+
+    <!-- CSS -->
+    <link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/bootstrap/css/bootsnav.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/icons/css/icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/bootstrap/css/bootstrap-wysihtml5.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/animate/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/nice-select/css/nice-select.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/date-dropper/datedropper.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/aos-master/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap" rel="stylesheet">
+  </head>
+
+  <body class="utf_skin_area">
+    <div class="page_preloader"></div>
+    <!-- ======================= Start Navigation ===================== -->
+      <nav class="navbar navbar-default navbar-mobile navbar-fixed light bootsnav">
+        <div class="container"> 
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+            <a class="navbar-brand" href="index.html"> <img src="{% static 'assets/img/logo.png' %}" class="logo logo-display" alt=""> 
+              <img src="{% static 'assets/img/logo.png' %}" class="logo logo-scrolled" alt="">
+            </a> 
+          </div>
+          <div class="collapse navbar-collapse" id="navbar-menu">
+            <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
+              <li> <a href="{% url 'recruiterdashboard' %}">Dashboard</a> </li>
+              <li class="selected"> <a href="{% url 'postjob' %}">Post Job</a> </li>
+              <li> <a href="contact.html">View Jobs</a> </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown sign-up">
+              <!-- ================ Navbar profile photo ======================= -->
+                {% if request.user.recruiter.image %}
+                  <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+                    <img src="{{ request.user.recruiter.image.url }}" class="img-responsive img-circle" alt="">
+                    {{ request.user }} 
+                  </a>
+                {% else %}
+                  <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+                    <img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">
+                    {{ request.user }} 
+                  </a>
+                {% endif %}
+                <!-- ================ End Navbar profile photo ======================= -->
+                <ul class="dropdown-menu animated fadeOutUp">
+                  <li><a href="{% url 'recruiterdashboard' %}">Dashboard</a></li>
+                  <li><a href="{% url 'logout' %}">Log Out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
+    <!-- ======================= End Navigation ===================== -->
+
+    <!-- ======================= Start Page Title ===================== -->
+    <div class="page-title">
+      <div class="container">
+        <div class="page-caption">
+          <h2>Add Job</h2>
+          <p><a href="#" title="Home">Home</a> <i class="ti-angle-double-right"></i> Add Job</p>
+        </div>
+      </div>
+    </div>
+    <!-- ======================= End Page Title ===================== -->
+
+    <!-- ======================= Create Job ===================== -->
+    <section class="create-job padd-top-80 padd-bot-80">
+      <div class="container" data-aos="fade-up">
+        <form class="c-form" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <!-- General Information -->
+          <div class="box">
+            <div class="box-header">
+              <h4>General Information</h4>
+            </div>
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Job Title</label>
+                  <input type="text" class="form-control" name="title" placeholder="Job Title">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Title Slug</label>
+                  <input type="text" class="form-control" name="slug" placeholder="Title Slug">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Company Name</label>
+                  <input type="text" class="form-control" name="company_name" placeholder="Company Name">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Starting Date</label>
+                  <input type="date" class="form-control" name="starting_date" placeholder="Starting Date">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Application Deadline</label>
+                  <input type="date" class="form-control" name="deadline" placeholder="Application Deadline">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Salary</label>
+                  <input type="Number" class="form-control" name="salary" placeholder="Salary">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12 m-clear">
+                  <label>No. Of Vacancy</label>
+                  <input type="number" class="form-control" name="vacancy" placeholder="No. Of Vacancy">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Job Category</label>
+                  <select class="wide form-control" name="job_category">
+                    <option value="swe">Software Engineering</option>
+                    <option value="wdd">Web Design & Development</option>
+                    <option value="dsa">Data Science & Analytics</option>
+                    <option value="gd">Graphic Design</option>
+                    <option value="sqa">Software Quality Assurance</option>
+                    <option value="nsa">Network & System Admin</option>
+                    <option value="it">Information Technology</option>
+                    <option value="cce">Cloud Computing & Engineering</option>
+                    <option value="cc">Cyber Security</option>
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Job Type</label>
+                  <select class="wide form-control" name="job_type">
+                    <option value="ft">Full Time</option>
+                    <option value="pt">Part Time</option>
+                    <option value="ip">Internship</option>
+                    <option value="re">Remote</option>
+                    <option value="ct">Contractual</option>
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Email</label>
+                  <input type="email" class="form-control" name="email" placeholder="Email">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Phone Number</label>
+                  <input type="text" class="form-control" name="phone" placeholder="Phone Number">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Company Website</label>
+                  <input type="url" class="form-control" name="company_website" placeholder="Company Website">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12 m-clear">
+                  <label>Company Logo</label>
+                  <div class="custom-file-upload">
+                    <input type="file" id="file" name="logo" multiple />
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Company Address</label>
+                  <textarea class="form-control" name="address" placeholder="Company Address" cols="4" rows="1"></textarea>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Division</label>
+                  <select class="wide form-control" name="division">
+                      <option value="dhk">Dhaka</option>
+                      <option value="ctg">Chittagong</option>
+                      <option value="rjs">Rajshahi</option>
+                      <option value="khl">Khulna</option>
+                      <option value="bar">Barishal</option>
+                      <option value="syl">Sylhet</option>
+                      <option value="rng">Rangpur</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Company Address -->
+          <div class="box">
+            <div class="box-header">
+              <h4>Job Information</h4>
+            </div>
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <label>Job Description</label>
+                  <textarea class="form-control" name="description" placeholder="Job Description" cols="6" rows="4"></textarea>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <label>Job Responsibility</label>
+                  <textarea class="form-control" name="responsibility" placeholder="Job Responsibility" cols="6" rows="4"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Accounts -->
+          <div class="box">
+            <div class="box-header">
+              <h4>Requirements</h4>
+            </div>
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Minimum Education</label>
+                  <select class="wide form-control" name="min_education">
+                    <option value="postgraduate">Post Graduate</option>
+                    <option value="graduate">Graduate</option>
+                    <option value="hsc">HSC</option>
+                    <option value="ssc">SSC</option>
+                    <option value="noneed">Doesn\'t Matter</option>
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>CGPA</label>
+                  <input type="number" step="0.01" name="cgpa" class="form-control" placeholder="">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Experience</label>
+                  <input type="number" class="form-control" name="experience" placeholder="Total years of relevant experience">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Skills Required</label>
+                  <textarea class="form-control" name="skill_req" placeholder="Skills Required" cols="4" rows="1"></textarea>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Skills Bonus</label>
+                  <input type="text" class="form-control" name="skill_bonus" placeholder="If you need any skill as bonus">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Status</label>
+                  <select class="wide form-control" name="status">
+                    <option value="publish">Publish</option>
+                    <option value="hide">Hide</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-m theme-btn full-width">Submit</button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <!-- ====================== End Create Job ================ -->
+
+    <section class="newsletter theme-bg" style="background-image:url(assets/img/bg-new.png)">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="heading light">
+              <h2>Subscribe Our Newsletter!</h2>
+              <p>Lorem Ipsum is simply dummy text printing and type setting industry Lorem Ipsum been industry standard
+                dummy text ever since when unknown printer took a galley.</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">
+            <div class="newsletter-box text-center">
+              <div class="input-group"> <span class="input-group-addon"><span class="ti-email theme-cl"></span></span>
+                <input type="text" class="form-control" placeholder="Enter your Email...">
+              </div>
+              <button type="button" class="btn theme-btn btn-radius btn-m">Subscribe</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= footer start ========================= -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-4">
+            <a href="index.html"><img class="footer-logo" src="assets/img/logo.png" alt=""></a>
+            <p>Lorem Ipsum is simply dummy text of printing and type setting industry. Lorem Ipsum been industry
+              standard dummy text ever since.</p>
+            <!-- Social Box -->
+            <div class="f-social-box">
+              <ul>
+                <li><a href="#"><i class="fa fa-facebook facebook-cl"></i></a></li>
+                <li><a href="#"><i class="fa fa-google google-plus-cl"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter twitter-cl"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram instagram-cl"></i></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-9 col-sm-8">
+            <div class="row">
+              <div class="col-md-3 col-sm-6">
+                <h4>Job Categories</h4>
+                <ul>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Work from Home</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Internship Job</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Freelancer Job</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Part Time Job</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Full Time Job</a></li>
+                </ul>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <h4>Job Type</h4>
+                <ul>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Create Account</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Career Counseling</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> My Oficiona</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> FAQ</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Report a Problem</a></li>
+                </ul>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <h4>Resources</h4>
+                <ul>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> My Account</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Support</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> How It Works</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Underwriting</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Employers</a></li>
+                </ul>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <h4>Quick Links</h4>
+                <ul>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Jobs Listing</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> About Us</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Contact Us</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Privacy Policy</a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Term & Condition</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="copyright text-center">
+              <p>Copyright © 2021 All Rights Reserved.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+    <div><a href="#" class="scrollup">Scroll</a></div>
+
+    <!-- Jquery js-->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/bootstrap/js/bootsnav.js' %}"></script>
+    <script src="{% static 'assets/js/viewportchecker.js' %}"></script>
+    <script src="{% static 'assets/js/slick.js' %}"></script>
+    <script src="{% static 'assets/plugins/bootstrap/js/wysihtml5-0.3.0.js' %}"></script>
+    <script src="{% static 'assets/plugins/bootstrap/js/bootstrap-wysihtml5.js' %}"></script>
+    <script src="{% static 'assets/plugins/aos-master/aos.js' %}"></script>
+    <script src="{% static 'assets/plugins/nice-select/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script>
+      $('#myTab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
+    </script>
+    <script>
+      $('#reservation-date').dateDropper();
+    </script>
+    <script> 
+      $(window).load(function () {
+        $(".page_preloader").fadeOut("slow");;
+      });
+      AOS.init();
+    </script>
+  </body>
+
+</html>

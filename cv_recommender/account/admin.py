@@ -6,10 +6,12 @@ from .models import Recruiter, Applicant
 
 @admin.register(Recruiter)
 class RecruiterAdmin(admin.ModelAdmin):
-    list_display = ['user', 'phone', 'organization', 'image']
+    list_display = ('user', 'phone', 'organization', 'image')
+    search_fields = ('user', 'phone')
 
 
 @admin.register(Applicant)
 class ApplicantAdmin(admin.ModelAdmin):
-    list_display = ['user', 'phone', 'work_exp',
-                    'summary', 'gender', 'address', 'dob', 'language', 'website', 'category', 'image']
+    list_display = ('user', 'phone', 'work_exp',
+                    'summary', 'gender', 'address', 'dob', 'language', 'website', 'category', 'image')
+    search_fields = ('user', 'phone')

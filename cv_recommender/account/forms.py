@@ -54,8 +54,6 @@ class RecruiterEditForm(forms.ModelForm):
         super(RecruiterEditForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
-            if visible.field == 'details':
-                visible.field.widget.attrs['class'] = 'form-control height-120 textarea'
 
 
 class ApplicantEditForm(forms.ModelForm):

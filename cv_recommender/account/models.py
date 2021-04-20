@@ -25,7 +25,7 @@ class Recruiter(models.Model):
     image = models.ImageField(blank=True, null=True)
 
     def __str__(self):
-        return f'Profile for user {self.user.username}'
+        return f'{self.user.username}'
 
 
 class Applicant(models.Model):
@@ -45,4 +45,4 @@ class Applicant(models.Model):
                                 default='Web Developer')
 
     def __str__(self):
-        return f'Profile for user {self.user.username}'
+        return f'{self.user.username}'

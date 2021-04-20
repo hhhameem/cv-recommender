@@ -1,0 +1,684 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="" lang="zxx">
+<head>
+<meta name="author" content="">
+<meta name="description" content="">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>:: Escort - Job Portal HTML Template ::</title>
+
+<!-- Favicon Icon -->
+<link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}" />
+
+<!-- CSS -->
+<link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/plugins/bootstrap/css/bootstrap-select.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/plugins/icons/css/icons.css' %}" rel="stylesheet">
+<link href="{% static 'assets/plugins/animate/animate.css' %}" rel="stylesheet">
+<link href="{% static 'assets/plugins/bootstrap/css/bootsnav.css' %}" rel="stylesheet">
+<link href="{% static 'assets/plugins/nice-select/css/nice-select.css' %}" rel="stylesheet">
+<link href="{% static 'assets/plugins/aos-master/aos.css' %}" rel="stylesheet">
+<link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+<link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap" rel="stylesheet"> 
+</head>
+<body class="utf_skin_area">
+<div class="page_preloader"></div>
+
+<!-- ======================= Start Navigation ===================== -->
+<nav class="navbar navbar-default navbar-mobile navbar-fixed white no-background bootsnav">
+  <div class="container"> 
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+      <a class="navbar-brand" href="index.html"> <img src="assets/img/logo-light.png" class="logo logo-display" alt=""> <img src="assets/img/logo.png" class="logo logo-scrolled" alt=""> </a> 
+	</div>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
+        <li class="dropdown active"> <a href="index.html">Home</a> </li>
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employer</a>
+          <ul class="dropdown-menu animated fadeOutUp">
+            <li><a href="employer.html">Employer</a></li>
+            <li><a href="employer-detail.html">Employer Detail</a></li>
+            <li><a href="create-company.html">Create Company</a></li>
+            <li><a href="manage-resume.html">Manage Resume</a></li>
+            <li><a href="add-job.html">Add Job</a></li>
+            <li><a href="resume-detail.html">Resume Detail</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Candidate</a>
+          <ul class="dropdown-menu animated fadeOutUp">
+            <li><a href="candidate.html">Candidate</a></li>
+            <li><a href="browse-job.html">Browse Jobs</a></li>
+            <li><a href="manage-job.html">Manage Jobs</a></li>
+            <li><a href="browse-category.html">Browse Categories</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
+          <ul class="dropdown-menu animated fadeOutUp">
+            <li><a href="profile-settings.html">Profile Settings</a></li>
+            <li><a href="job-detail.html">Job Detail</a></li>
+            <li><a href="job-layout-one.html">Job Layout One</a></li>
+            <li><a href="404.html">404</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"> <a href="contact.html">Contact</a> </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="br-right"><a class="btn-signup red-btn" href="{% url 'login' %}"><i class="login-icon ti-user"></i>Login</a></li>
+        <li class="sign-up"><a class="btn-signup red-btn" href="{% url 'register' %}"><span class="ti-briefcase"></span>Register</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- ======================= End Navigation ===================== --> 
+
+<!-- ======================= Start Banner ===================== -->
+<div class="utf_main_banner_area" style="background-image:url(assets/img/slider_bg.jpg);" data-overlay="8">
+  <div class="container">
+    <div class="col-md-8 col-sm-10">
+      <div class="caption cl-white home_two_slid">
+        <h2>Search Between More Then <span class="theme-cl">50,000</span> Open Jobs.</h2>
+        <p>Trending Jobs Keywords: <span class="trending_key"><a href="#">Web Designer</a></span> <span class="trending_key"><a href="#">Web Developer</a></span> <span class="trending_key"><a href="#">IOS Developer</a></span> <span class="trending_key"><a href="#">Android Developer</a></span></p>
+      </div>
+      <form>
+        <fieldset class="utf_home_form_one">
+          <div class="col-md-4 col-sm-4 padd-0">
+            <input type="text" class="form-control br-1" placeholder="Search Keywords..." />
+          </div>
+          <div class="col-md-3 col-sm-3 padd-0">
+            <select class="wide form-control br-1">
+              <option data-display="Location">All Country</option>
+              <option value="1">Afghanistan</option>
+              <option value="2">Albania</option>
+              <option value="3">Algeria</option>
+			  <option value="4">Brazil</option>
+              <option value="5">Burundi</option>
+              <option value="6">Bulgaria</option>
+			  <option value="7">Germany</option>
+              <option value="8">Grenada</option>
+              <option value="9">Guatemala</option>
+              <option value="10" disabled>Iceland</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-3 padd-0">
+            <select class="wide form-control">
+              <option data-display="Category">Show All</option>
+              <option value="1">Software Developer</option>
+              <option value="2">Java Developer</option>
+              <option value="3">Software Engineer</option>
+			  <option value="4">Web Developer</option>
+              <option value="5">PHP Developer</option>
+              <option value="6">Python Developer</option>
+			  <option value="7">Front end Developer</option>
+              <option value="8">Associate Developer</option>
+              <option value="9">Back end Developer</option>
+			  <option value="10">XML Developer</option>
+              <option value="11">.NET Developer</option>              
+			  <option value="12" disabled>Marketting Developer</option>
+            </select>
+          </div>
+          <div class="col-md-2 col-sm-2 padd-0 m-clear">
+            <button type="submit" class="btn theme-btn cl-white seub-btn">Search</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- ======================= End Banner ===================== --> 
+
+<!-- ================= Job start ========================= -->
+<section class="padd-top-80 padd-bot-80">
+  <div class="container"> 
+    <ul class="nav nav-tabs nav-advance theme-bg" role="tablist">
+      <li class="nav-item active"> <a class="nav-link" data-toggle="tab" href="#recent" role="tab"> Latest Jobs</a> </li>
+      <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#" role="tab"> Recent Jobs</a> </li>
+    </ul>
+    <div class="tab-content"> 
+      <div class="tab-pane fade in show active" id="recent" role="tabpanel">
+        <div class="row"> 
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox" checked>
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_1.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">Product Redesign</a></h5>
+                <p class="text-muted">2708 Scenic Way, IL 62373</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox">
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_2.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">New Product Mockup</a></h5>
+                <p class="text-muted">2708 Scenic Way, IL 62373</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox" checked>
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_3.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">Custom Php Developer</a></h5>
+                <p class="text-muted">3765 C Street, Worcester</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox">
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_4.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">Wordpress Developer</a></h5>
+                <p class="text-muted">2719 Duff Avenue, Winooski</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type internship-type">Internship</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox" checked>
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_5.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">Web Maintenence</a></h5>
+                <p class="text-muted">2708 Scenic Way, IL 62373</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox">
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_6.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">Photoshop Designer</a></h5>
+                <p class="text-muted">2865 Emma Street, Lubbock</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox">
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_7.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">HTML5 & CSS3 Coder</a></h5>
+                <p class="text-muted">2719 Burnside Avenue, Logan</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox" checked>
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_8.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">.Net Developer</a></h5>
+                <p class="text-muted">3815 Forest Drive, Alexandria</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Featured Job -->
+      <div class="tab-pane fade" id="featured" role="tabpanel">
+        <div class="row"> 
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox">
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_6.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">.Net Developer</a></h5>
+                <p class="text-muted">2708 Scenic Way, IL 62373</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox">
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_4.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">Java Developer</a></h5>
+                <p class="text-muted">2708 Scenic Way, IL 62373</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Full Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox">
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_5.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">Web Maintenence</a></h5>
+                <p class="text-muted">3765 C Street, Worcester</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox">
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_1.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">Wordpress Developer</a></h5>
+                <p class="text-muted">2719 Duff Avenue, Winooski</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type internship-type">Internship</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox">
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_7.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">Custom Php Developer</a></h5>
+                <p class="text-muted">2708 Scenic Way, IL 62373</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox">
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_8.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">New Product Mockup</a></h5>
+                <p class="text-muted">2865 Emma Street, Lubbock</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox">
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_3.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">Product Redesign</a></h5>
+                <p class="text-muted">2719 Burnside Avenue, Logan</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+          
+          <!-- Single Job -->
+          <div class="col-md-3 col-sm-6">
+            <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
+              <div class="utf_job_like">
+                <label class="toggler toggler-danger">
+                  <input type="checkbox">
+                  <i class="fa fa-heart"></i> 
+				</label>
+              </div>
+              <div class="u-content">
+                <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_6.png" alt=""> </a> </div>
+                <h5><a href="employer-detail.html">Front End Designer</a></h5>
+                <p class="text-muted">3815 Forest Drive, Alexandria</p>
+              </div>
+              <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 mrg-top-20 text-center">
+      <a href="job-layout-one.html" class="btn theme-btn btn-m">Browse All Jobs</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Category start ========================= -->
+<section class="utf_job_category_area">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="heading">
+          <h2>Job Categories</h2>  
+		  <p>Lorem Ipsum is simply dummy text printing and type setting industry Lorem Ipsum been industry standard dummy text ever since when unknown printer took a galley.</p>	
+        </div>
+      </div>
+    </div>
+    <div class="row">
+		<div class="col-md-12">
+		  <div class="col-md-3 col-sm-6">
+			<a href="browse-job.html" title="">
+				<div class="utf_category_box_area">
+				  <div class="utf_category_desc">
+					<div class="utf_category_icon"> <i class="icon-bargraph" aria-hidden="true"></i> </div>
+					<div class="category-detail utf_category_desc_text"> 
+					  <h4>Web & Software Dev</h4>
+					  <p>122 Jobs</p>	
+					</div>
+				  </div>			
+				</div>
+			</a>
+		  </div>
+		  <div class="col-md-3 col-sm-6">
+			<a href="browse-job.html" title="">
+				<div class="utf_category_box_area">
+				  <div class="utf_category_desc">
+					<div class="utf_category_icon"> <i class="icon-tools" aria-hidden="true"></i> </div>
+					<div class="category-detail utf_category_desc_text"> 
+					  <h4>Data Science & Analitycs</h4>
+					  <p>155 Jobs</p>
+					</div>
+				  </div>
+				</div>
+			</a>
+		  </div>
+		  <div class="col-md-3 col-sm-6">
+			<a href="browse-job.html" title="">
+				<div class="utf_category_box_area">
+				  <div class="utf_category_desc">
+					<div class="utf_category_icon"> <i class="ti-briefcase" aria-hidden="true"></i> </div>
+					<div class="category-detail utf_category_desc_text">
+					  <h4>Accounting & Consulting</h4>
+					  <p>300 Jobs</p>
+					</div>
+				  </div>
+				</div>
+			</a>
+		  </div>
+		  <div class="col-md-3 col-sm-6">
+			<a href="browse-job.html" title="">
+				<div class="utf_category_box_area">
+				  <div class="utf_category_desc">
+					<div class="utf_category_icon"> <i class="ti-ruler-pencil" aria-hidden="true"></i> </div>
+					<div class="category-detail utf_category_desc_text"> 
+					  <h4>Writing & Translations</h4>
+					  <p>80 Jobs</p>
+					</div>
+				  </div>
+				</div>
+			</a>
+		  </div>
+		  <div class="col-md-3 col-sm-6">
+			<a href="browse-job.html" title="">
+				<div class="utf_category_box_area">
+				  <div class="utf_category_desc">
+					<div class="utf_category_icon"> <i class="icon-briefcase" aria-hidden="true"></i> </div>
+					<div class="category-detail utf_category_desc_text"> 
+					  <h4>Sales & Marketing</h4>
+					  <p>120 Jobs</p>
+					</div>
+				  </div>
+				</div>
+			</a>
+		  </div>
+		  <div class="col-md-3 col-sm-6">
+			<a href="browse-job.html" title="">
+				<div class="utf_category_box_area">
+				  <div class="utf_category_desc">
+					<div class="utf_category_icon"> <i class="icon-wine" aria-hidden="true"></i> </div>
+					<div class="category-detail utf_category_desc_text">
+					  <h4>Graphics & Design</h4>
+					  <p>78 Jobs</p>
+					</div>
+				  </div>
+				</div>
+			</a>
+		  </div>
+		  <div class="col-md-3 col-sm-6">
+			<a href="browse-job.html" title="">
+				<div class="utf_category_box_area">
+				  <div class="utf_category_desc">
+					<div class="utf_category_icon"> <i class="ti-world" aria-hidden="true"></i> </div>
+					<div class="category-detail utf_category_desc_text">
+					  <h4>Digital Marketing</h4>
+					  <p>90 Jobs</p>
+					</div>
+				  </div>
+				</div>
+			</a>
+		  </div>
+		  <div class="col-md-3 col-sm-6">
+			<a href="browse-job.html" title="">
+				<div class="utf_category_box_area">
+				  <div class="utf_category_desc">
+					<div class="utf_category_icon"> <i class="ti-desktop" aria-hidden="true"></i> </div>
+					<div class="category-detail utf_category_desc_text"> 
+					  <h4>Education & Training</h4>
+					  <p>210 Jobs</p>
+					</div>
+				  </div>
+				</div>
+			</a>
+		  </div>
+		  <div class="col-md-12 mrg-top-20 text-center">
+			<a href="browse-category.html" class="btn theme-btn btn-m">View All Categories</a>
+		  </div>
+	  </div>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter theme-bg" style="background-image:url(assets/img/bg-new.png)">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="heading light">
+          <h2>Subscribe Our Newsletter!</h2>
+          <p>Lorem Ipsum is simply dummy text printing and type setting industry Lorem Ipsum been industry standard dummy text ever since when unknown printer took a galley.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">
+        <div class="newsletter-box text-center">
+          <div class="input-group"> <span class="input-group-addon"><span class="ti-email theme-cl"></span></span>
+            <input type="text" class="form-control" placeholder="Enter your Email...">
+          </div>
+          <button type="button" class="btn theme-btn btn-radius btn-m">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= footer start ========================= -->
+<footer class="footer">
+  <div class="container"> 
+    <div class="row">
+	  <div class="col-md-3 col-sm-4">
+        <a href="index.html"><img class="footer-logo" src="assets/img/logo.png" alt=""></a>
+        <p>Lorem Ipsum is simply dummy text of printing and type setting industry. Lorem Ipsum been industry standard dummy text ever since.</p>
+        <!-- Social Box -->
+        <div class="f-social-box">
+          <ul>
+            <li><a href="#"><i class="fa fa-facebook facebook-cl"></i></a></li>
+            <li><a href="#"><i class="fa fa-google google-plus-cl"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter twitter-cl"></i></a></li>
+            <li><a href="#"><i class="fa fa-instagram instagram-cl"></i></a></li>
+          </ul>
+        </div>        
+      </div>	
+      <div class="col-md-9 col-sm-8">
+        <div class="row">
+          <div class="col-md-3 col-sm-6">
+            <h4>Job Categories</h4>
+            <ul>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Work from Home</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Internship Job</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Freelancer Job</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Part Time Job</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Full Time Job</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <h4>Job Type</h4>
+            <ul>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Create Account</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Career Counseling</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> My Oficiona</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> FAQ</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Report a Problem</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> My Account</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Support</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> How It Works</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Underwriting</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Employers</a></li>
+            </ul>
+          </div>
+		  <div class="col-md-3 col-sm-6">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Jobs Listing</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> About Us</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Contact Us</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Privacy Policy</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Term & Condition</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>      
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="copyright text-center">
+          <p>Copyright © 2021 All Rights Reserved.</p>		  
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div><a href="#" class="scrollup">Scroll</a></div>
+
+<!-- Jquery js--> 
+<script src="{% static 'assets/js/jquery.min.js' %}"></script> 
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script> 
+<script src="{% static 'assets/plugins/bootstrap/js/bootsnav.js' %}"></script> 
+<script src="{% static 'assets/js/viewportchecker.js' %}"></script> 
+<script src="{% static 'assets/js/slick.js' %}"></script> 
+<script src="{% static 'assets/plugins/bootstrap/js/wysihtml5-0.3.0.js' %}"></script> 
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap-wysihtml5.js' %}"></script> 
+<script src="{% static 'assets/plugins/aos-master/aos.js' %}"></script> 
+<script src="{% static 'assets/plugins/nice-select/js/jquery.nice-select.min.js' %}"></script> 
+<script src="{% static 'assets/js/custom.js' %}"></script> 
+<script>
+	$(window).load(function() {
+	  $(".page_preloader").fadeOut("slow");;
+	});
+	AOS.init();
+</script>
+</body>
+</html>
