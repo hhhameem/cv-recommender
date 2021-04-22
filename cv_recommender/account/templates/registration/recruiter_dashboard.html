@@ -9,7 +9,7 @@
 <title>:: Escort - Job Portal HTML Template ::</title>
 
 <!-- Favicon Icon -->
-<link rel="shortcut icon" href="assets/img/favicon.png" />
+<link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}" />
 
 <!-- CSS -->
 <link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -41,7 +41,12 @@
       <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
         <li class="selected"> <a href="{% url 'recruiterdashboard' %}">Dashboard</a> </li>
         <li> <a href="{% url 'postjob' %}">Post Job</a> </li>
-        <li> <a href="contact.html">View Jobs</a> </li>
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">View Jobs</a>
+          <ul class="dropdown-menu animated fadeOutUp">
+            <li><a href="{% url 'currentOpeningJobs' %}">Current Openning Jobs</a></li>
+            <li><a href="{% url 'allJobs' %}">All jobs </a></li>
+          </ul>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown sign-up">
@@ -106,23 +111,31 @@
 		</div>
 	  </div>
 	  <div class="col-md-9">
+      {% for message in messages %}
+          <div class="alert alert-warning alert-dismissible show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %}
         <div id="dashboard_listing_blcok">
 		  <div class="col-md-6 col-sm-6">
 			<div class="statusbox">
-			  <h3>Jobs Applied Today</h3>
+			  <h3>Currently Opening Jobs</h3>
 			  <div class="statusbox-content">
 				<p class="ic_status_item ic_col_one"><i class="fa fa-briefcase"></i></p>
-				<h2>0</h2>
+				<h2>{{ current }}</h2>
 				<span>Updated 02 Jan 2021</span> 
 			  </div>
 			</div>
 		  </div>
 		  <div class="col-md-6 col-sm-6">
 			<div class="statusbox">
-			  <h3>Total Jobs Applied</h3>
+			  <h3>Total Jobs Posted</h3>
 			  <div class="statusbox-content">
 				<p class="ic_status_item ic_col_one"><i class="fa fa-briefcase"></i></p>
-				<h2>3</h2>
+				<h2>{{ total }}</h2>
 				<span>Updated 02 Jan 2021</span> 
 			  </div>
 			</div>

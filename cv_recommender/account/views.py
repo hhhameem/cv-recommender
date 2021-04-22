@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from custom_decorators.custom_decorator import allowed_users
 from .forms import CreateUserForm, LoginUserForm, UserEditForm, ApplicantEditForm, RecruiterEditForm
 from .models import Applicant, Recruiter
+from cvrecommender.models import Job
 # Create your views here.
 
 
@@ -81,7 +82,10 @@ def applicantdashboard(request):
 @login_required(login_url='login')
 @allowed_users(allowed_group=['recruiter'])
 def recruiterdashboard(request):
-    return render(request, 'registration/recruiter_dashboard.html')
+    total = Job.objects.filter(recruiter=request.user.recruiter).count()
+    current = Job.published.filter(recruiter=request.user.recruiter).count()
+    context = {'total': total, 'current': current}
+    return render(request, 'registration/recruiter_dashboard.html', context)
 
 
 @login_required(login_url='login')

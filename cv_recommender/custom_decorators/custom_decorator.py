@@ -34,7 +34,7 @@ def allowed_users(allowed_group=[]):
                 else:
                     if group == 'applicant':
                         return redirect('applicantdashboard')
-                    if group == 'recruiter':
+                    elif group == 'recruiter':
                         return redirect('recruiterdashboard')
             else:
                 return redirect('login')

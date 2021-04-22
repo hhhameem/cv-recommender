@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.urls import reverse
 # Create your models here.
 
 JOB_CATEGORY = (
@@ -49,7 +50,7 @@ EDU = (
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super(PublishedManager, self).get_queryset()\
-                                            .filter(status='published')
+                                            .filter(status='publish')
 
 
 class Job(models.Model):
@@ -87,18 +88,19 @@ class Job(models.Model):
                                   on_delete=models.CASCADE,
                                   related_name='jobs')
     applicant = models.ManyToManyField('account.Applicant',
-                                       related_name='jobs')
+                                       related_name='jobs', blank=True)
 
-    objects = models.Manager()         # default manager
     published = PublishedManager()    # custom manager for all published job post
+    objects = models.Manager()         # default manager
 
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(
+                self.title+'-'+self.company_name+'-'+str(self.deadline))
         super(Job, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        pass
+        return reverse('job_detail', args=[self.slug])
