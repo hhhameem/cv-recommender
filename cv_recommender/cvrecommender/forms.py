@@ -18,3 +18,16 @@ class JobPostForm(forms.ModelForm):
                   'logo', 'address', 'division', 'description',
                   'responsibility', 'min_education', 'cgpa',
                   'experience', 'skill_req', 'skill_bonus', 'status')
+
+
+class EditJobForm(forms.ModelForm):
+    class Meta:
+        model = Job
+        fields = ('title', 'slug', 'company_name',
+                  'starting_date', 'deadline', 'status',)
+
+    def __init__(self, *args, **kwargs):
+        super(EditJobForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+            visible.field.widget.attrs['readonly'] = True

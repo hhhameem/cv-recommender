@@ -79,7 +79,7 @@ class Job(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(15)])
     skill_req = models.TextField(help_text='Input skills with comma')
     skill_bonus = models.CharField(
-        max_length=255, help_text='Input skills with comma')
+        max_length=255, blank=True, null=True, help_text='Input skills with comma')
 
     status = models.CharField(max_length=10, choices=STATUS)
     publish = models.DateField(auto_now_add=True)
@@ -90,8 +90,8 @@ class Job(models.Model):
     applicant = models.ManyToManyField('account.Applicant',
                                        related_name='jobs', blank=True)
 
-    published = PublishedManager()    # custom manager for all published job post
     objects = models.Manager()         # default manager
+    published = PublishedManager()    # custom manager for all published job post
 
     def __str__(self):
         return self.title

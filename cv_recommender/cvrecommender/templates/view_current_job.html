@@ -114,12 +114,12 @@
                 <td>{{ job.vacancy }}</td>
                 <td><i class="ti-credit-card"></i> {{ job.publish }}</td>
                 <td><i class="ti-credit-card"></i> {{ job.deadline }}</td>
-                <td><a href="#" class="cl-success mrg-5" data-toggle="tooltip" data-original-title="Edit"><i
-                      class="fa fa-edit"></i></a>
+                <td><a href="{% url 'editjob' job.id %}" class="cl-success mrg-5" data-toggle="tooltip" data-original-title="Edit">
+                  <i class="fa fa-edit"></i></a>
                 </td>
               </tr>
             {% empty %}
-              <td colspan="4" class="text-center">You have No Opening Job At This Moment.<br>
+              <td colspan="6" class="text-center">You have No Opening Job At This Moment.<br>
                 <a href="{% url 'postjob' %}">Click Here</a> To Post a New Job.
               </td>
             {% endfor %}
