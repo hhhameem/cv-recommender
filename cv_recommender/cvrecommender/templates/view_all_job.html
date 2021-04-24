@@ -94,9 +94,9 @@
                 <th>Title</th>
                 <th>Company Name</th>
                 <th>Status</th>
+                <th>Vacancy</th>
                 <th>Posted</th>
                 <th class="text-danger">Deadline</th>
-                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -112,11 +112,9 @@
                   </td>
                   <td>{{ job.company_name }}</td>
                   <td>{{ job.status }}</td>
+                  <td>{{ job.vacancy }}</td>
                   <td><i class="ti-credit-card"></i> {{ job.publish }}</td>
                   <td><i class="ti-credit-card"></i> {{ job.deadline }}</td>
-                  <td><a href="#" class="cl-success mrg-5" data-toggle="tooltip" data-original-title="Edit">
-                  <i class="fa fa-edit"></i></a>
-                  </td>
                 </tr>
               {% empty %}
                 <td colspan="6" class="text-center">You have not posted any Job Circular yet.<br>
@@ -125,17 +123,51 @@
               {% endfor %}
             </tbody>
           </table>
+          <!-- ====================== Pagination ================ -->
           <div class="utf_flexbox_area padd-10">
             <ul class="pagination">
-              <li class="page-item"> <a class="page-link" href="#" aria-label="Previous"> <span
-                    aria-hidden="true">«</span> <span class="sr-only">Previous</span> </a> </li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"> <a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">»</span>
-                  <span class="sr-only">Next</span> </a> </li>
+              {% if all_jobs.has_previous %}
+                <li class="page-item"> <a class="page-link" href="?page=1" aria-label="Previous">
+                  <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span> </a> 
+                </li>
+                <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.previous_page_number }}" aria-label="Previous">
+                  <span aria-hidden="true"><i class="fa fa-angle-left"></i></span> </a> 
+                </li>
+              {% else %}
+                <li class="page-item"> <a class="page-link" href="?page=1" aria-label="Previous">
+                  <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span> </a> 
+                </li>
+                <li class="page-item"> <a class="page-link" href="?page=1" aria-label="Previous">
+                  <span aria-hidden="true"><i class="fa fa-angle-left"></i></span> </a> 
+                </li>
+              {% endif %}
+
+              {% for job in all_jobs.paginator.page_range %}
+                {% if all_jobs.number == job %}
+                  <li class="page-item active"><a class="page-link" href="?page={{ job }}">{{ job }}</a> </li>
+                {% elif job > all_jobs.number|add:'-2' and job < all_jobs.number|add:'2' %}
+                  <li class="page-item"><a class="page-link" href="?page={{ job }}">{{ job }}</a> </li> 
+                {% endif %}
+              {% endfor %}
+
+              {% if all_jobs.has_next %}
+                <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.next_page_number }}" aria-label="Previous">
+                  <span aria-hidden="true"><i class="fa fa-angle-right"></i></span> </a> 
+                </li>
+                <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.paginator.num_pages }}" aria-label="Previous">
+                  <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span> </a> 
+                </li>
+              {% else %}
+                <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.paginator.num_pages }}" aria-label="Previous">
+                  <span aria-hidden="true"><i class="fa fa-angle-right"></i></span> </a> 
+                </li>
+                <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.paginator.num_pages }}" aria-label="Previous">
+                  <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span> </a> 
+                </li>
+              {% endif %}
             </ul>
           </div>
+          <!-- ====================== End Pagination ================ -->
         </div>
       </div>
     </section>

@@ -84,7 +84,13 @@ def applicantdashboard(request):
 def recruiterdashboard(request):
     total = Job.objects.filter(recruiter=request.user.recruiter).count()
     current = Job.published.filter(recruiter=request.user.recruiter).count()
-    context = {'total': total, 'current': current}
+    last_published = Job.published.filter(recruiter=request.user.recruiter)\
+        .latest('publish')
+    last_edited = Job.objects.filter(recruiter=request.user.recruiter)\
+        .latest('last_modified')
+    context = {'total': total, 'current': current,
+               'last_edited': last_edited, 'last_published': last_published}
+
     return render(request, 'registration/recruiter_dashboard.html', context)
 
 
