@@ -5,45 +5,44 @@ from django.urls import reverse
 # Create your models here.
 
 JOB_CATEGORY = (
-    ('swe', 'Software Engineering'),
-    ('wdd', 'Web Design & Development'),
-    ('dsa', 'Data Science & Analytics'),
-    ('gd', 'Graphic Design'),
-    ('sqa', 'Software Quality Assurance'),
-    ('nsa', 'Network & System Admin'),
-    ('it', 'Information Technology'),
-    ('cce', 'Cloud Computing & Engineering'),
-    ('cc', 'Cyber Security'),
+    ('Software Engineering', 'Software Engineering'),
+    ('Web Design and Development', 'Web Design & Development'),
+    ('Data Science and Analytics', 'Data Science & Analytics'),
+    ('Graphic Design', 'Graphic Design'),
+    ('Software Quality Assurance', 'Software Quality Assurance'),
+    ('Network and System Admin', 'Network & System Admin'),
+    ('Information Technology', 'Information Technology'),
+    ('Cloud Computing and Engineering', 'Cloud Computing & Engineering'),
+    ('Cyber Security', 'Cyber Security'),
 )
 
 JOB_TYPE = (
-    ('ft', 'Full Time'),
-    ('pt', 'Part Time'),
-    ('ip', 'Internship'),
-    ('re', 'Remote'),
-    ('ct', 'Contractual'),
+    ('Full Time', 'Full Time'),
+    ('Part Time', 'Part Time'),
+    ('Internship', 'Internship'),
+    ('Remote', 'Remote'),
+    ('Contractual', 'Contractual'),
 )
 CITY = (
-    ('dhk', 'Dhaka'),
-    ('ctg', 'Chittagong'),
-    ('rjs', 'Rajshahi'),
-    ('khl', 'Khulna'),
-    ('bar', 'Barishal'),
-    ('syl', 'Sylhet'),
-    ('rng', 'Rangpur'),
+    ('Dhaka', 'Dhaka'),
+    ('Chittagong', 'Chittagong'),
+    ('Rajshahi', 'Rajshahi'),
+    ('Khulna', 'Khulna'),
+    ('Barishal', 'Barishal'),
+    ('Sylhet', 'Sylhet'),
+    ('Rangpur', 'Rangpur'),
 )
 
 STATUS = (
-    ('publish', 'Publish'),
-    ('hide', 'Hide'),
+    ('Published', 'Published'),
+    ('Hidden', 'Hidden'),
 )
 
 EDU = (
-    ('postgraduate', 'Post Graduate'),
-    ('graduate', 'Graduate'),
-    ('hsc', 'HSC'),
-    ('ssc', 'SSC'),
-    ('noneed', 'Doesn\'t Matter'),
+    ('Post Graduate', 'Post Graduate'),
+    ('Graduate', 'Graduate'),
+    ('HSC', 'HSC'),
+    ('SSC', 'SSC'),
 )
 
 
@@ -63,17 +62,17 @@ class Job(models.Model):
     salary = models.PositiveIntegerField()
     vacancy = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(50)])
-    job_category = models.CharField(max_length=3, choices=JOB_CATEGORY)
-    job_type = models.CharField(max_length=2, choices=JOB_TYPE)
+    job_category = models.CharField(max_length=50, choices=JOB_CATEGORY)
+    job_type = models.CharField(max_length=20, choices=JOB_TYPE)
     email = models.EmailField(max_length=254,)
     phone = models.CharField(max_length=11, blank=True, null=True)
     company_website = models.URLField()
     logo = models.ImageField(null=True, blank=True)
     address = models.TextField(max_length=200)
-    division = models.CharField(max_length=4, choices=CITY)
+    division = models.CharField(max_length=15, choices=CITY)
     description = models.TextField()
     responsibility = models.TextField()
-    min_education = models.CharField(max_length=12, choices=EDU)
+    min_education = models.CharField(max_length=20, choices=EDU)
     cgpa = models.DecimalField(max_digits=3, decimal_places=2)
     experience = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(15)])
@@ -81,7 +80,7 @@ class Job(models.Model):
     skill_bonus = models.CharField(
         max_length=255, blank=True, null=True, help_text='Input skills with comma')
 
-    status = models.CharField(max_length=10, choices=STATUS)
+    status = models.CharField(max_length=20, choices=STATUS)
     publish = models.DateField(auto_now_add=True)
     last_modified = models.DateField(auto_now=True)
     recruiter = models.ForeignKey('account.Recruiter',
@@ -103,4 +102,4 @@ class Job(models.Model):
         super(Job, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('job_detail', args=[self.slug])
+        return reverse('jobDetail', args=[self.slug])

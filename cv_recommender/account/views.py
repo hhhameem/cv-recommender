@@ -4,6 +4,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from datetime import date
 from custom_decorators.custom_decorator import allowed_users
 from .forms import CreateUserForm, LoginUserForm, UserEditForm, ApplicantEditForm, RecruiterEditForm
 from .models import Applicant, Recruiter
@@ -32,7 +33,7 @@ def register(request):
             new_user.groups.add(group)
 
             messages.success(request, 'Registration successfull for User Type: '
-                             + user_type + 'and username ' + user_registration_form.cleaned_data['username'])
+                             + user_type + ' and username ' + user_registration_form.cleaned_data['username'])
             return redirect('login')
     else:
         user_registration_form = CreateUserForm()
@@ -84,10 +85,15 @@ def applicantdashboard(request):
 def recruiterdashboard(request):
     total = Job.objects.filter(recruiter=request.user.recruiter).count()
     current = Job.published.filter(recruiter=request.user.recruiter).count()
-    last_published = Job.published.filter(recruiter=request.user.recruiter)\
-        .latest('publish')
-    last_edited = Job.objects.filter(recruiter=request.user.recruiter)\
-        .latest('last_modified')
+    if total > 0:
+        last_published = Job.published.filter(recruiter=request.user.recruiter)\
+            .latest('publish')
+        last_edited = Job.objects.filter(recruiter=request.user.recruiter)\
+            .latest('last_modified')
+    else:
+        last_published = date.today()
+        last_edited = date.today()
+
     context = {'total': total, 'current': current,
                'last_edited': last_edited, 'last_published': last_published}
 

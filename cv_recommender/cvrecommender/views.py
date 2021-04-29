@@ -11,7 +11,13 @@ import datetime
 # Create your views here.
 
 def home(request):
-    return render(request, 'index.html')
+    job_number = Job.objects.all().count()
+
+    latest_jobs = Job.published.all().order_by('-publish')[:8]
+
+    context = {'job_number': job_number, 'latest_jobs': latest_jobs}
+
+    return render(request, 'index.html', context)
 
 
 @login_required(login_url='login')
@@ -53,7 +59,8 @@ def editjob(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_group=['recruiter'])
 def currentOpeningJobs(request):
-    opening_jobs = Job.published.all()
+    opening_jobs = Job.published.filter(recruiter=request.user.recruiter)\
+        .order_by('-publish')
 
     paginator = Paginator(opening_jobs, 3)
     page = request.GET.get('page')
@@ -64,7 +71,8 @@ def currentOpeningJobs(request):
 @login_required(login_url='login')
 @allowed_users(allowed_group=['recruiter'])
 def allJobs(request):
-    all_jobs = Job.objects.all()
+    all_jobs = Job.objects.filter(recruiter=request.user.recruiter)\
+        .order_by('-publish')
     today = datetime.datetime.now()
 
     paginator = Paginator(all_jobs, 10)
@@ -75,4 +83,4 @@ def allJobs(request):
 
 
 def jobDetail(request, job_slug):
-    pass
+    return HttpResponse('Okay')

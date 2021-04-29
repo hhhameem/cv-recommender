@@ -91,12 +91,12 @@
           <table class="table table-lg table-hover">
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Company Name</th>
-                <th>Vacancy</th>
-                <th>Posted</th>
-                <th class="text-danger">Deadline</th>
-                <th>Action</th>
+                <th class="text-center">Title</th>
+                <th class="text-center">Company Name</th>
+                <th class="text-center">Vacancy</th>
+                <th class="text-center">Posted</th>
+                <th class="text-danger text-center">Deadline</th>
+                <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -110,11 +110,11 @@
                   {% endif %}
                   {{ job.title }}
                 </td>
-                <td>{{ job.company_name }}</td>
-                <td>{{ job.vacancy }}</td>
-                <td><i class="ti-credit-card"></i> {{ job.publish }}</td>
-                <td><i class="ti-credit-card"></i> {{ job.deadline }}</td>
-                <td><a href="{% url 'editjob' job.id %}" class="cl-success mrg-5" data-toggle="tooltip" data-original-title="Edit">
+                <td class="text-center">{{ job.company_name }}</td>
+                <td class="text-center">{{ job.vacancy }}</td>
+                <td class="text-center"><i class="ti-credit-card"></i> {{ job.publish }}</td>
+                <td class="text-center"><i class="ti-credit-card"></i> {{ job.deadline }}</td>
+                <td class="text-center"><a href="{% url 'editjob' job.id %}" class="cl-success mrg-5" data-toggle="tooltip" data-original-title="Edit">
                   <i class="fa fa-edit"></i></a>
                 </td>
               </tr>

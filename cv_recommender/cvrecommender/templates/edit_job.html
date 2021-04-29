@@ -144,12 +144,12 @@
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <label>Job Status</label>
                   <select class="wide form-control" name="status">
-                    {% if jobEditForm.status.value == 'publish' %}
-                      <option value="publish" selected>Publish</option>
-                      <option value="hide">Hide</option>
-                    {% elif jobEditForm.status.value == 'hide' %}
-                      <option value="publish">Publish</option>
-                      <option value="hide" selected>Hide</option>
+                    {% if jobEditForm.status.value == 'Published' %}
+                      <option value="Published" selected>Publish</option>
+                      <option value="Hidden">Hide</option>
+                    {% elif jobEditForm.status.value == 'Hidden' %}
+                      <option value="Published">Publish</option>
+                      <option value="Hidden" selected>Hide</option>
                     {% endif %}
                   </select>
                 </div>
