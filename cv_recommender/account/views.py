@@ -86,7 +86,7 @@ def recruiterdashboard(request):
     total = Job.objects.filter(recruiter=request.user.recruiter).count()
     current = Job.published.filter(recruiter=request.user.recruiter).count()
     if total > 0:
-        last_published = Job.published.filter(recruiter=request.user.recruiter)\
+        last_published = Job.objects.filter(recruiter=request.user.recruiter)\
             .latest('publish')
         last_edited = Job.objects.filter(recruiter=request.user.recruiter)\
             .latest('last_modified')

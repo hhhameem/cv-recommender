@@ -146,7 +146,7 @@
           <div class="utf_grid_job_widget_area"> <span class="job-type full-type">{{ job.job_type }}</span>
             <div class="u-content">
               {% if job.logo %}
-                  <img src="{{ job.logo.url }}" class="avatar-lg"alt="Company Logo">
+                  <div class="avatar box-80"><img class="img-responsive" src="{{ job.logo.url }}" alt="Company Logo"></div>
                 {% else %}
                 <div class="avatar box-80"><img class="img-responsive" src="{% static 'assets/img/company_logo_1.png' %}" alt="Company Logo"></div>
               {% endif %}
