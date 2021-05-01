@@ -2,36 +2,15 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.core.paginator import Paginator
 import datetime
 from .forms import JobPostForm, EditJobForm
 from .models import Job
 from custom_decorators.custom_decorator import allowed_users
-from custom_scripts.dictionary_sort import sort_dict_and_return
+from custom_scripts.custom_functions import sort_dict_and_return
 
 
 # Create your views here.
-
-def home(request):
-    category_dict = {}
-    job_number = 0
-    latest_jobs = Job.published.all().order_by('-publish')[:8]
-
-    for job in Job.objects.all():
-        category_dict[job.job_category] = category_dict\
-            .get(job.job_category, 0)+1
-        job_number += 1
-
-    sorted_sliced_category, top_3 = sort_dict_and_return(category_dict)
-
-    context = {'job_number': job_number, 'latest_jobs': latest_jobs,
-               'sorted_sliced_category': sorted_sliced_category, 'top_3': top_3}
-
-    return render(request, 'index.html', context)
-
-
-def jobCategory(request, job_cat):
-    return HttpResponse('Thank you ' + job_cat)
-
 
 @login_required(login_url='login')
 @allowed_users(allowed_group=['recruiter'])
@@ -95,5 +74,56 @@ def allJobs(request):
     return render(request, 'view_all_job.html', {'all_jobs': all_jobs, 'today': today})
 
 
+def home(request):
+    all_jobs = Job.objects.all()
+    latest_jobs = Job.published.all().order_by('-publish')[:8]
+    job_number = Job.published.all().count()
+
+    sorted_cat_dict, sliced_dict, top_3 = sort_dict_and_return(all_jobs)
+
+    context = {'job_number': job_number, 'latest_jobs': latest_jobs,
+               'sliced_dict': sliced_dict, 'top_3': top_3}
+
+    return render(request, 'index.html', context)
+
+
+def allPublishedJobs(request):
+    all_jobs = Job.published.all().order_by('-publish')
+
+    paginator = Paginator(all_jobs, 12)
+    page = request.GET.get('page')
+    all_jobs = paginator.get_page(page)
+
+    context = {'all_jobs': all_jobs}
+    return render(request, 'job_layout.html', context)
+
+
+def allCategories(request):
+    sorted_cat_dict, sliced_dict, top_3 = \
+        sort_dict_and_return(Job.objects.all())
+    context = {'sorted_cat_dict': sorted_cat_dict}
+
+    return render(request, 'all_categories.html', context)
+
+
+def jobCategory(request, job_cat):
+    return HttpResponse('Thank you ' + job_cat)
+
+
 def jobDetail(request, job_slug):
-    return HttpResponse('Okay')
+    job = get_object_or_404(Job, slug=job_slug)
+    related_jobs = Job.published.filter(job_category=job.job_category)\
+        .exclude(id=job.id).order_by('-publish')[:4]
+
+    skill_bonus = []
+    skill_req = job.skill_req.split(',')
+    responsibility = job.responsibility.split('.')
+    description = job.description.split('.')
+    if job.skill_bonus:
+        skill_bonus = job.skill_bonus.split(',')
+
+    context = {'job': job, 'skill_req': skill_req,
+               'skill_bonus': skill_bonus, 'responsibility': responsibility,
+               'description': description, 'related_jobs': related_jobs}
+
+    return render(request, 'job_detail.html', context)

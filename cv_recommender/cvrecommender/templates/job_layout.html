@@ -1,11 +1,11 @@
 {% load static %}
 <!DOCTYPE html>
-<html class="" lang="zxx">
+<html class="no-js" lang="zxx">
 <head>
 <meta name="author" content="">
 <meta name="description" content="">
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type"content="text/html;charset=UTF-8"/>
+<meta name="viewport"content="width=device-width, initial-scale=1.0">
 <title>:: Escort - Job Portal HTML Template ::</title>
 
 <!-- Favicon Icon -->
@@ -13,12 +13,11 @@
 
 <!-- CSS -->
 <link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-<link href="{% static 'assets/plugins/bootstrap/css/bootstrap-select.min.css' %}" rel="stylesheet">
 <link href="{% static 'assets/plugins/icons/css/icons.css' %}" rel="stylesheet">
 <link href="{% static 'assets/plugins/animate/animate.css' %}" rel="stylesheet">
+<link href="{% static 'assets/plugins/aos-master/aos.css' %}" rel="stylesheet">
 <link href="{% static 'assets/plugins/bootstrap/css/bootsnav.css' %}" rel="stylesheet">
 <link href="{% static 'assets/plugins/nice-select/css/nice-select.css' %}" rel="stylesheet">
-<link href="{% static 'assets/plugins/aos-master/aos.css' %}" rel="stylesheet">
 <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
 <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet">
 <!-- Google Fonts -->
@@ -27,17 +26,16 @@
 </head>
 <body class="utf_skin_area">
 <div class="page_preloader"></div>
-
 <!-- ======================= Start Navigation ===================== -->
-<nav class="navbar navbar-default navbar-mobile navbar-fixed white no-background bootsnav">
-  <div class="container"> 
+<nav class="navbar navbar-default navbar-mobile navbar-fixed light bootsnav">
+  <div class="container">     
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
-      <a class="navbar-brand" href="#"> <img src="{% static 'assets/img/logo-light.png' %}" class="logo logo-display" alt=""> <img src="{% static 'assets/img/logo.png' %}" class="logo logo-scrolled" alt=""> </a> 
-	</div>
+      <a class="navbar-brand" href="index.html"> <img src="assets/img/logo.png" class="logo logo-display" alt=""> <img src="assets/img/logo.png" class="logo logo-scrolled" alt=""> </a> 
+	</div>    
     <div class="collapse navbar-collapse" id="navbar-menu">
       <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
-        <li class="dropdown active"> <a href="index.html">Home</a> </li>
+        <li class="dropdown"> <a href="index.html">Home</a> </li>
         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employer</a>
           <ul class="dropdown-menu animated fadeOutUp">
             <li><a href="employer.html">Employer</a></li>
@@ -67,33 +65,35 @@
         <li class="dropdown"> <a href="contact.html">Contact</a> </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="br-right"><a class="btn-signup red-btn" href="{% url 'login' %}"><i class="login-icon ti-user"></i>Login</a></li>
-        <li class="sign-up"><a class="btn-signup red-btn" href="{% url 'register' %}"><span class="ti-briefcase"></span>Register</a></li>
+        <li class="br-right"><a class="btn-signup red-btn" href=""><i class="login-icon ti-user"></i>Login</a></li>
       </ul>
     </div>
   </div>
 </nav>
 <!-- ======================= End Navigation ===================== --> 
 
-<!-- ======================= Start Banner ===================== -->
-<div class="utf_main_banner_area" style="background-image:url(assets/img/slider_bg.jpg);" data-overlay="8">
+<!-- ======================= Start Page Title ===================== -->
+<div class="page-title">
   <div class="container">
-    <div class="col-md-8 col-sm-10">
-      <div class="caption cl-white home_two_slid">
-        <h2>Search Between More Than <span class="theme-cl">{{ job_number }}</span> Open Jobs.</h2>
-        <p>Trending Jobs Categories: 
-          {% for key in top_3 %}
-            <span class="trending_key"><a href="{% url 'jobCategory' key %}">{{ key }}</a></span> 
-          {% endfor %}
-        </p>
-      </div>
+    <div class="page-caption text-center">
+      <h2>Job In Grid</h2>
+      <p><a href="#" title="Home">Home</a> <i class="ti-angle-double-right"></i> Job Layout One</p>
+    </div>
+  </div>
+</div>
+<!-- ======================= End Page Title ===================== --> 
+
+<!-- ======================= Search Filter ===================== -->
+<section class="padd-0 padd-top-20 jov_search_block_inner">
+  <div class="row">
+    <div class="container">
       <form>
-        <fieldset class="utf_home_form_one">
-          <div class="col-md-4 col-sm-4 padd-0">
-            <input type="text" class="form-control br-1" placeholder="Search Keywords..." />
+        <fieldset class="search-form">
+          <div class="col-md-4 col-sm-4">
+            <input type="text" class="form-control" placeholder="Job Title, Keywords or Company Name..." />
           </div>
-          <div class="col-md-3 col-sm-3 padd-0">
-            <select class="wide form-control br-1">
+          <div class="col-md-3 col-sm-3">
+            <select class="wide form-control">
               <option data-display="Location">All Country</option>
               <option value="1">Afghanistan</option>
               <option value="2">Albania</option>
@@ -107,7 +107,7 @@
               <option value="10" disabled>Iceland</option>
             </select>
           </div>
-          <div class="col-md-3 col-sm-3 padd-0">
+          <div class="col-md-3 col-sm-3">
             <select class="wide form-control">
               <option data-display="Category">Show All</option>
               <option value="1">Software Developer</option>
@@ -124,28 +124,50 @@
 			  <option value="12" disabled>Marketting Developer</option>
             </select>
           </div>
-          <div class="col-md-2 col-sm-2 padd-0 m-clear">
-            <button type="submit" class="btn theme-btn cl-white seub-btn">Search</button>
+          <div class="col-md-2 col-sm-2 m-clear">
+            <button type="submit" class="btn theme-btn full-width height-50 radius-0">Search</button>
           </div>
         </fieldset>
       </form>
     </div>
   </div>
-</div>
-<!-- ======================= End Banner ===================== --> 
+</section>
+<!-- ======================= Search Filter ===================== --> 
 
-<!-- ================= Job start ========================= -->
-<section class="padd-top-80 padd-bot-80">
-  <div class="container">
-    <div class="row mrg-bot-30">
-      <div class="col-sm-4"></div>
-      <div class="col-sm-4">
-        <h2 class="padd-10 theme-bg text-center">Latest Jobs</h2>
+<!-- ====================== Start Job Detail 2 ================ -->
+<section class="padd-top-20 padd-bot-80">
+  <div class="container"> 
+    <div class="row mrg-bot-20">
+      <div class="col-md-5 col-sm-4 col-xs-12">
+        <h4 class="job_vacancie">98 Jobs & Vacancies</h4>
       </div>
-      <div class="col-sm-4"></div>
+      <div class="col-md-7 col-sm-8 col-xs-12">
+        <div class="fl-right short_by_filter_list">
+          <div class="search-wide short_by_til">
+            <h5>Short By</h5>
+          </div>
+          <div class="search-wide full">
+            <select class="wide form-control">
+              <option value="1">Most Recent</option>
+              <option value="2">Most Viewed</option>
+              <option value="4">Most Search</option>
+            </select>
+          </div>
+          <div class="search-wide full">
+            <select class="wide form-control">
+              <option>10 Per Page</option>
+              <option value="1">20 Per Page</option>
+              <option value="2">30 Per Page</option>
+              <option value="4">50 Per Page</option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
+    
+    <!-- ====================== Job List ================ --> 
     <div class="row"> 
-      {% for job in latest_jobs %}
+      {% for job in all_jobs %}
         <div class="col-md-3 col-sm-6">
           <div class="utf_grid_job_widget_area"> <span class="job-type full-type">{{ job.job_type }}</span>
             <div class="u-content">
@@ -163,99 +185,57 @@
           </div>
         </div>
       {% endfor %}
-    </div> 
-
-    <div class="col-md-12 mrg-top-20 text-center">
-      <a href="{% url 'allPublishedJobs' %}" class="btn theme-btn btn-m">Browse All Jobs</a>
     </div>
-  </div>
-</section>
+    <div class="clearfix"></div>
 
-<!-- ================= Category start ========================= -->
-<section class="utf_job_category_area">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="heading">
-          <h2>Job Categories</h2>  
-		  <p>Lorem Ipsum is simply dummy text printing and type setting industry Lorem Ipsum been industry standard dummy text ever since when unknown printer took a galley.</p>	
-        </div>
-      </div>
-    </div>
-    <div class="row">
-		<div class="col-md-12">
-      {% for key, value in sliced_dict.items %}
-        <div class="col-md-3 col-sm-6">
-          <a href="{% url 'jobCategory' key %}" title="">
-            <div class="utf_category_box_area">
-              <div class="utf_category_desc">
-                {% if key == 'Software Engineering' %}
-                  <div class="utf_category_icon"> <i class="icon-tablet" aria-hidden="true"></i> </div>
-                  <div class="category-detail utf_category_desc_text"> 
-                    <h4>{{ key|truncatechars:26 }}</h4>
-                    <p>{{ value }} Jobs</p>	
-                  </div>
-                {% elif key == 'Web Design and Development' %}
-                  <div class="utf_category_icon"> <i class="icon-browser" aria-hidden="true"></i> </div>
-                  <div class="category-detail utf_category_desc_text"> 
-                    <h4>{{ key|truncatechars:24 }}</h4>
-                    <p>{{ value }} Jobs</p>	
-                  </div>
-                {% elif key == 'Data Science and Analytics' %}
-                  <div class="utf_category_icon"> <i class="icon-linegraph" aria-hidden="true"></i> </div>
-                  <div class="category-detail utf_category_desc_text"> 
-                    <h4>{{ key|truncatechars:26 }}</h4>
-                    <p>{{ value }} Jobs</p>	
-                  </div>
-                {% elif key == 'Graphic Design' %}
-                  <div class="utf_category_icon"> <i class="icon-pictures" aria-hidden="true"></i> </div>
-                  <div class="category-detail utf_category_desc_text"> 
-                    <h4>{{ key|truncatechars:26 }}</h4>
-                    <p>{{ value }} Jobs</p>	
-                  </div>
-                {% elif key == 'Network and System Admin' %}
-                  <div class="utf_category_icon"> <i class="icon-toolbox" aria-hidden="true"></i> </div>
-                  <div class="category-detail utf_category_desc_text"> 
-                    <h4>{{ key|truncatechars:26 }}</h4>
-                    <p>{{ value }} Jobs</p>	
-                  </div>
-                {% elif key == 'Cloud Computing and Engineering' %}
-                  <div class="utf_category_icon"> <i class="icon-cloud" aria-hidden="true"></i> </div>
-                  <div class="category-detail utf_category_desc_text"> 
-                    <h4>{{ key|truncatechars:26 }}</h4>
-                    <p>{{ value }} Jobs</p>	
-                  </div>
-                {% elif key == 'Information Technology' %}
-                  <div class="utf_category_icon"> <i class="ti-world" aria-hidden="true"></i> </div>
-                  <div class="category-detail utf_category_desc_text"> 
-                    <h4>{{ key|truncatechars:26 }}</h4>
-                    <p>{{ value }} Jobs</p>	
-                  </div>
-                {% elif key == 'Cyber Security' %}
-                  <div class="utf_category_icon"> <i class="ti-lock" aria-hidden="true"></i> </div>
-                  <div class="category-detail utf_category_desc_text"> 
-                    <h4>{{ key|truncatechars:26 }}</h4>
-                    <p>{{ value }} Jobs</p>	
-                  </div>
-                {% elif key == 'Software Quality Assurance' %}
-                  <div class="utf_category_icon"> <i class="icon-shield" aria-hidden="true"></i> </div>
-                  <div class="category-detail utf_category_desc_text"> 
-                    <h4>{{ key|truncatechars:26 }}</h4>
-                    <p>{{ value }} Jobs</p>	
-                  </div>
-                {% endif %} 
-              </div>			
-            </div>
-          </a>
-        </div>
-      {% endfor %}
-		  <div class="col-md-12 mrg-top-20 text-center">
-			<a href="{% url 'allCategories' %}" class="btn theme-btn btn-m">View All Categories</a>
-		  </div>
+    <!-- ====================== Start Paggination ================ --> 
+    <div class="utf_flexbox_area padd-0">
+      <ul class="pagination">
+        {% if all_jobs.has_previous %}
+          <li class="page-item"> <a class="page-link" href="?page=1" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span> </a> 
+          </li>
+          <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-left"></i></span> </a> 
+          </li>
+        {% else %}
+          <li class="page-item"> <a class="page-link" href="?page=1" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span> </a> 
+          </li>
+          <li class="page-item"> <a class="page-link" href="?page=1" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-left"></i></span> </a> 
+          </li>
+        {% endif %}
+
+        {% for job in all_jobs.paginator.page_range %}
+          {% if all_jobs.number == job %}
+            <li class="page-item active"><a class="page-link" href="?page={{ job }}">{{ job }}</a> </li>
+          {% elif job > all_jobs.number|add:'-2' and job < all_jobs.number|add:'2' %}
+            <li class="page-item"><a class="page-link" href="?page={{ job }}">{{ job }}</a> </li> 
+          {% endif %}
+        {% endfor %}
+
+        {% if all_jobs.has_next %}
+          <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.next_page_number }}" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-right"></i></span> </a> 
+          </li>
+          <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.paginator.num_pages }}" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span> </a> 
+          </li>
+        {% else %}
+          <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.paginator.num_pages }}" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-right"></i></span> </a> 
+          </li>
+          <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.paginator.num_pages }}" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span> </a> 
+          </li>
+        {% endif %}
+      </ul>
 	  </div>
-    </div>
+    <!-- ====================== End Paggination ================ --> 
   </div>
 </section>
+<!-- ====================== End Job Detail 2 ================ --> 
 
 <section class="newsletter theme-bg" style="background-image:url(assets/img/bg-new.png)">
   <div class="container">
@@ -352,6 +332,7 @@
   </div>
 </footer>
 
+
 <div><a href="#" class="scrollup">Scroll</a></div>
 
 <!-- Jquery js--> 
@@ -360,7 +341,6 @@
 <script src="{% static 'assets/plugins/bootstrap/js/bootsnav.js' %}"></script> 
 <script src="{% static 'assets/js/viewportchecker.js' %}"></script> 
 <script src="{% static 'assets/js/slick.js' %}"></script> 
-<script src="{% static 'assets/plugins/bootstrap/js/wysihtml5-0.3.0.js' %}"></script> 
 <script src="{% static 'assets/plugins/bootstrap/js/bootstrap-wysihtml5.js' %}"></script> 
 <script src="{% static 'assets/plugins/aos-master/aos.js' %}"></script> 
 <script src="{% static 'assets/plugins/nice-select/js/jquery.nice-select.min.js' %}"></script> 

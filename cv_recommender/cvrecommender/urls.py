@@ -8,6 +8,9 @@ urlpatterns = [
     path('editjob/<int:pk>', views.editjob, name='editjob'),
     path('currentlyOpening/', views.currentOpeningJobs, name='currentOpeningJobs'),
     path('allJobs/', views.allJobs, name='allJobs'),
-    path('job/<slug:job_slug>/', views.jobDetail, name='jobDetail'),
-    path('job/category/<str:job_cat>', views.jobCategory, name='jobCategory')
+    path('jobs/', views.allPublishedJobs, name='allPublishedJobs'),
+    path('jobs/jobdetails/<slug:job_slug>/',
+         views.jobDetail, name='jobDetail'),
+    path('jobs/categories/', views.allCategories, name='allCategories'),
+    path('jobs/category/<str:job_cat>', views.jobCategory, name='jobCategory')
 ]
