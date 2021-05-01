@@ -33,7 +33,7 @@
   <div class="container"> 
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
-      <a class="navbar-brand" href="index.html"> <img src="{% static 'assets/img/logo-light.png' %}" class="logo logo-display" alt=""> <img src="assets/img/logo.png" class="logo logo-scrolled" alt=""> </a> 
+      <a class="navbar-brand" href="#"> <img src="{% static 'assets/img/logo-light.png' %}" class="logo logo-display" alt=""> <img src="{% static 'assets/img/logo.png' %}" class="logo logo-scrolled" alt=""> </a> 
 	</div>
     <div class="collapse navbar-collapse" id="navbar-menu">
       <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
@@ -81,7 +81,11 @@
     <div class="col-md-8 col-sm-10">
       <div class="caption cl-white home_two_slid">
         <h2>Search Between More Than <span class="theme-cl">{{ job_number }}</span> Open Jobs.</h2>
-        <p>Trending Jobs Keywords: <span class="trending_key"><a href="#">Web Designer</a></span> <span class="trending_key"><a href="#">Web Developer</a></span> <span class="trending_key"><a href="#">IOS Developer</a></span> <span class="trending_key"><a href="#">Android Developer</a></span></p>
+        <p>Trending Jobs Categories: 
+          {% for key in top_3 %}
+            <span class="trending_key"><a href="{% url 'jobCategory' key %}">{{ key }}</a></span> 
+          {% endfor %}
+        </p>
       </div>
       <form>
         <fieldset class="utf_home_form_one">
@@ -180,112 +184,73 @@
     </div>
     <div class="row">
 		<div class="col-md-12">
-		  <div class="col-md-3 col-sm-6">
-			<a href="browse-job.html" title="">
-				<div class="utf_category_box_area">
-				  <div class="utf_category_desc">
-					<div class="utf_category_icon"> <i class="icon-bargraph" aria-hidden="true"></i> </div>
-					<div class="category-detail utf_category_desc_text"> 
-					  <h4>Web & Software Dev</h4>
-					  <p>122 Jobs</p>	
-					</div>
-				  </div>			
-				</div>
-			</a>
-		  </div>
-		  <div class="col-md-3 col-sm-6">
-			<a href="browse-job.html" title="">
-				<div class="utf_category_box_area">
-				  <div class="utf_category_desc">
-					<div class="utf_category_icon"> <i class="icon-tools" aria-hidden="true"></i> </div>
-					<div class="category-detail utf_category_desc_text"> 
-					  <h4>Data Science & Analitycs</h4>
-					  <p>155 Jobs</p>
-					</div>
-				  </div>
-				</div>
-			</a>
-		  </div>
-		  <div class="col-md-3 col-sm-6">
-			<a href="browse-job.html" title="">
-				<div class="utf_category_box_area">
-				  <div class="utf_category_desc">
-					<div class="utf_category_icon"> <i class="ti-briefcase" aria-hidden="true"></i> </div>
-					<div class="category-detail utf_category_desc_text">
-					  <h4>Accounting & Consulting</h4>
-					  <p>300 Jobs</p>
-					</div>
-				  </div>
-				</div>
-			</a>
-		  </div>
-		  <div class="col-md-3 col-sm-6">
-			<a href="browse-job.html" title="">
-				<div class="utf_category_box_area">
-				  <div class="utf_category_desc">
-					<div class="utf_category_icon"> <i class="ti-ruler-pencil" aria-hidden="true"></i> </div>
-					<div class="category-detail utf_category_desc_text"> 
-					  <h4>Writing & Translations</h4>
-					  <p>80 Jobs</p>
-					</div>
-				  </div>
-				</div>
-			</a>
-		  </div>
-		  <div class="col-md-3 col-sm-6">
-			<a href="browse-job.html" title="">
-				<div class="utf_category_box_area">
-				  <div class="utf_category_desc">
-					<div class="utf_category_icon"> <i class="icon-briefcase" aria-hidden="true"></i> </div>
-					<div class="category-detail utf_category_desc_text"> 
-					  <h4>Sales & Marketing</h4>
-					  <p>120 Jobs</p>
-					</div>
-				  </div>
-				</div>
-			</a>
-		  </div>
-		  <div class="col-md-3 col-sm-6">
-			<a href="browse-job.html" title="">
-				<div class="utf_category_box_area">
-				  <div class="utf_category_desc">
-					<div class="utf_category_icon"> <i class="icon-wine" aria-hidden="true"></i> </div>
-					<div class="category-detail utf_category_desc_text">
-					  <h4>Graphics & Design</h4>
-					  <p>78 Jobs</p>
-					</div>
-				  </div>
-				</div>
-			</a>
-		  </div>
-		  <div class="col-md-3 col-sm-6">
-			<a href="browse-job.html" title="">
-				<div class="utf_category_box_area">
-				  <div class="utf_category_desc">
-					<div class="utf_category_icon"> <i class="ti-world" aria-hidden="true"></i> </div>
-					<div class="category-detail utf_category_desc_text">
-					  <h4>Digital Marketing</h4>
-					  <p>90 Jobs</p>
-					</div>
-				  </div>
-				</div>
-			</a>
-		  </div>
-		  <div class="col-md-3 col-sm-6">
-			<a href="browse-job.html" title="">
-				<div class="utf_category_box_area">
-				  <div class="utf_category_desc">
-					<div class="utf_category_icon"> <i class="ti-desktop" aria-hidden="true"></i> </div>
-					<div class="category-detail utf_category_desc_text"> 
-					  <h4>Education & Training</h4>
-					  <p>210 Jobs</p>
-					</div>
-				  </div>
-				</div>
-			</a>
-		  </div>
+      {% for key, value in sorted_sliced_category.items %}
+        <div class="col-md-3 col-sm-6">
+          <a href="{% url 'jobCategory' key %}" title="">
+            <div class="utf_category_box_area">
+              <div class="utf_category_desc">
+                {% if key == 'Software Engineering' %}
+                  <div class="utf_category_icon"> <i class="icon-tablet" aria-hidden="true"></i> </div>
+                  <div class="category-detail utf_category_desc_text"> 
+                    <h4>{{ key|truncatechars:26 }}</h4>
+                    <p>{{ value }} Jobs</p>	
+                  </div>
+                {% elif key == 'Web Design and Development' %}
+                  <div class="utf_category_icon"> <i class="icon-browser" aria-hidden="true"></i> </div>
+                  <div class="category-detail utf_category_desc_text"> 
+                    <h4>{{ key|truncatechars:24 }}</h4>
+                    <p>{{ value }} Jobs</p>	
+                  </div>
+                {% elif key == 'Data Science and Analytics' %}
+                  <div class="utf_category_icon"> <i class="icon-linegraph" aria-hidden="true"></i> </div>
+                  <div class="category-detail utf_category_desc_text"> 
+                    <h4>{{ key|truncatechars:26 }}</h4>
+                    <p>{{ value }} Jobs</p>	
+                  </div>
+                {% elif key == 'Graphic Design' %}
+                  <div class="utf_category_icon"> <i class="icon-pictures" aria-hidden="true"></i> </div>
+                  <div class="category-detail utf_category_desc_text"> 
+                    <h4>{{ key|truncatechars:26 }}</h4>
+                    <p>{{ value }} Jobs</p>	
+                  </div>
+                {% elif key == 'Network and System Admin' %}
+                  <div class="utf_category_icon"> <i class="icon-toolbox" aria-hidden="true"></i> </div>
+                  <div class="category-detail utf_category_desc_text"> 
+                    <h4>{{ key|truncatechars:26 }}</h4>
+                    <p>{{ value }} Jobs</p>	
+                  </div>
+                {% elif key == 'Cloud Computing and Engineering' %}
+                  <div class="utf_category_icon"> <i class="icon-cloud" aria-hidden="true"></i> </div>
+                  <div class="category-detail utf_category_desc_text"> 
+                    <h4>{{ key|truncatechars:26 }}</h4>
+                    <p>{{ value }} Jobs</p>	
+                  </div>
+                {% elif key == 'Information Technology' %}
+                  <div class="utf_category_icon"> <i class="ti-world" aria-hidden="true"></i> </div>
+                  <div class="category-detail utf_category_desc_text"> 
+                    <h4>{{ key|truncatechars:26 }}</h4>
+                    <p>{{ value }} Jobs</p>	
+                  </div>
+                {% elif key == 'Cyber Security' %}
+                  <div class="utf_category_icon"> <i class="ti-lock" aria-hidden="true"></i> </div>
+                  <div class="category-detail utf_category_desc_text"> 
+                    <h4>{{ key|truncatechars:26 }}</h4>
+                    <p>{{ value }} Jobs</p>	
+                  </div>
+                {% elif key == 'Software Quality Assurance' %}
+                  <div class="utf_category_icon"> <i class="icon-shield" aria-hidden="true"></i> </div>
+                  <div class="category-detail utf_category_desc_text"> 
+                    <h4>{{ key|truncatechars:26 }}</h4>
+                    <p>{{ value }} Jobs</p>	
+                  </div>
+                {% endif %} 
+              </div>			
+            </div>
+          </a>
+        </div>
+      {% endfor %}
 		  <div class="col-md-12 mrg-top-20 text-center">
-			<a href="browse-category.html" class="btn theme-btn btn-m">View All Categories</a>
+			<a href="#" class="btn theme-btn btn-m">View All Categories</a>
 		  </div>
 	  </div>
     </div>

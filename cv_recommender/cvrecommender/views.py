@@ -2,22 +2,35 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
-from custom_decorators.custom_decorator import allowed_users
+import datetime
 from .forms import JobPostForm, EditJobForm
 from .models import Job
-import datetime
+from custom_decorators.custom_decorator import allowed_users
+from custom_scripts.dictionary_sort import sort_dict_and_return
 
 
 # Create your views here.
 
 def home(request):
-    job_number = Job.objects.all().count()
-
+    category_dict = {}
+    job_number = 0
     latest_jobs = Job.published.all().order_by('-publish')[:8]
 
-    context = {'job_number': job_number, 'latest_jobs': latest_jobs}
+    for job in Job.objects.all():
+        category_dict[job.job_category] = category_dict\
+            .get(job.job_category, 0)+1
+        job_number += 1
+
+    sorted_sliced_category, top_3 = sort_dict_and_return(category_dict)
+
+    context = {'job_number': job_number, 'latest_jobs': latest_jobs,
+               'sorted_sliced_category': sorted_sliced_category, 'top_3': top_3}
 
     return render(request, 'index.html', context)
+
+
+def jobCategory(request, job_cat):
+    return HttpResponse('Thank you ' + job_cat)
 
 
 @login_required(login_url='login')
