@@ -103,3 +103,27 @@ class Job(models.Model):
 
     def get_absolute_url(self):
         return reverse('jobDetail', args=[self.slug])
+
+
+class JobApplication(models.Model):
+    applicant = models.ForeignKey('account.Applicant',
+                                  on_delete=models.CASCADE,
+                                  related_name='jobApplications', blank=True)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=20)
+    email = models.EmailField(max_length=254)
+    phone = models.CharField(max_length=11)
+    education_application = models.CharField(max_length=20, choices=EDU)
+    cgpa_application = models.DecimalField(max_digits=3, decimal_places=2)
+    skill_req_application = models.TextField()
+    skill_bonus_application = models.CharField(
+        max_length=255, blank=True, null=True)
+    related_experience_application = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(15)])
+    total_experience_application = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(15)])
+    note_application = models.TextField(blank=True, null=True)
+    cv_application = models.FileField()
+
+    def __str__(self):
+        return self.applicant

@@ -82,7 +82,7 @@
 </div>
 <!-- ======================= End Page Title ===================== --> 
 
-<!-- ====================== Start Job Detail 2 ================ -->
+<!-- ====================== Start Job Detail ================ -->
 <section class="padd-top-80 padd-bot-60">
   <div class="container"> 
     <!-- row -->
@@ -98,7 +98,7 @@
               {% endif %}
               <h4 class="meg-0">{{ job.title }}</h4>
               <div class="text-center">
-                <button type="button" class="btn-job theme-btn job-apply">Apply Now</button>
+                <a href="{% url 'apply' job.slug %}" class="btn-job theme-btn job-apply">Apply Now</a>
               </div>
             </div>
             <div class="col-md-8 user_job_detail">
@@ -122,6 +122,7 @@
             {% endfor %}
           </div>
         </div>
+
         {% comment %} if any bonus skill is required {% endcomment %}
         {% if job.skill_bonus %}
           <div class="detail-wrapper">
@@ -171,7 +172,7 @@
         </div>
       </div>
       
-      <!-- Sidebar -->
+      <!-- Basic Info of job -->
       <div class="col-md-4 col-sm-5">
         <div class="sidebar"> 
           <!-- Start: Job Overview -->
@@ -193,8 +194,7 @@
               </div>
             </div>
           </div>
-          <!-- End: Job Overview --> 
-          
+
           <!-- Start: Opening hour -->
           <div class="widget-boxed">
             <div class="widget-boxed-header">
@@ -227,8 +227,10 @@
         </div>
       </div>
     </div>
-    <!-- End Row --> 
+    <!-- ====================== End Job Detail  ================ --> 
     
+
+    <!-- Similar Jobs show --> 
     <div class="row">
       <div class="col-md-12">
         <h3 class="mrg-bot-20">Similar Jobs 
@@ -243,12 +245,12 @@
         <div class="col-md-3 col-sm-6">
           <div class="utf_grid_job_widget_area"> <span class="job-type full-type">{{ related_job.job_type }}</span>
             <div class="u-content">
-              {% if job.logo %}
+              {% if related_job.logo %}
                   <div class="avatar box-80"><img class="img-responsive" src="{{ related_job.logo.url }}" alt="Company Logo"></div>
                 {% else %}
                 <div class="avatar box-80"><img class="img-responsive" src="{% static 'assets/img/company_logo_1.png' %}" alt="Company Logo"></div>
               {% endif %}
-              <h5><a href="employer-detail.html">{{ related_job.title }}</a></h5>
+              <h5><a href="{{ related_job.get_absolute_url }}">{{ related_job.title }}</a></h5>
               <p class="text-muted">Experience: {{ related_job.experience }} years</p>
             </div>
             <div class="utf_apply_job_btn_item">
@@ -257,14 +259,13 @@
           </div>
         </div>
       {% empty %}
-        <h2>No related Jobs of this Category</h2>
+        <h2>No related Job Found of this Category</h2>
       {% endfor %}
-      
-    
     </div>
+    <!-- End Similar Jobs show --> 
   </div>
 </section>
-<!-- ====================== End Job Detail 2 ================ --> 
+
 
 <section class="newsletter theme-bg" style="background-image:url(assets/img/bg-new.png)">
   <div class="container">

@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.core.paginator import Paginator
 import datetime
-from .forms import JobPostForm, EditJobForm
-from .models import Job
+from .forms import JobPostForm, EditJobForm, JobApplicationForm
+from .models import Job, JobApplication
 from custom_decorators.custom_decorator import allowed_users
 from custom_scripts.custom_functions import sort_dict_and_return
 
@@ -87,8 +87,12 @@ def home(request):
     return render(request, 'index.html', context)
 
 
-def allPublishedJobs(request):
-    all_jobs = Job.published.all().order_by('-publish')
+def allPublishedJobs(request, job_cat=None):
+    if job_cat:
+        all_jobs = Job.published.filter(
+            job_category=job_cat).order_by('-publish')
+    else:
+        all_jobs = Job.published.all().order_by('-publish')
 
     paginator = Paginator(all_jobs, 12)
     page = request.GET.get('page')
@@ -106,8 +110,15 @@ def allCategories(request):
     return render(request, 'all_categories.html', context)
 
 
-def jobCategory(request, job_cat):
-    return HttpResponse('Thank you ' + job_cat)
+# def jobCategory(request, job_cat):
+#     all_jobs = Job.published.filter(job_category=job_cat).order_by('-publish')
+
+#     paginator = Paginator(all_jobs, 12)
+#     page = request.GET.get('page')
+#     all_jobs = paginator.get_page(page)
+
+#     context = {'all_jobs': all_jobs}
+#     return render(request, 'job_layout.html', context)
 
 
 def jobDetail(request, job_slug):
@@ -127,3 +138,29 @@ def jobDetail(request, job_slug):
                'description': description, 'related_jobs': related_jobs}
 
     return render(request, 'job_detail.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_group=['applicant'])
+def apply(request, job_slug):
+    job = get_object_or_404(Job, slug=job_slug)
+
+    if request.method == 'POST':
+        application_form = JobApplicationForm(data=request.POST,
+                                              files=request.FILES)
+        if application_form.is_valid():
+            application_form_obj = application_form.save(commit=False)
+            application_form_obj.applicant = request.user.applicant
+            job.applicant.add(request.user.applicant)
+            application_form_obj.save()
+            job.save()
+            messages.success(request, 'You application has\
+                            submitted successfully')
+            return redirect('editapplicantprofile')
+        else:
+            messages.error(request, 'Please input valid data')
+            return render(request, 'apply.html', {'application_form': application_form})
+    else:
+        application_form = JobApplicationForm()
+
+    return render(request, 'apply.html', {'application_form': application_form})
