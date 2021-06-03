@@ -29,7 +29,7 @@ def register(request):
             else:
                 Recruiter.objects.create(user=new_user)
 
-            group = Group.objects.get(name=user_type)
+            group, created = Group.objects.get_or_create(name=user_type)
             new_user.groups.add(group)
 
             messages.success(request, 'Registration successfull for User Type: '

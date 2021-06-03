@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Job
+from .models import Job, JobApplication
 # Register your models here.
 
 
@@ -12,3 +12,12 @@ class JobAdmin(admin.ModelAdmin):
     search_fields = ('title', 'company_name', 'email')
     date_hierarchy = 'publish'
     ordering = ('publish',)
+
+
+@admin.register(JobApplication)
+class JobApplicationAdmin(admin.ModelAdmin):
+    list_display = ('applicant', 'job', 'first_name', 'last_name',
+                    'email', 'phone',)
+    list_filter = ('apply_time',)
+    search_fields = ('applicant', 'job', 'email')
+    ordering = ('apply_time',)

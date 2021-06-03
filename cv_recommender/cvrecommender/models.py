@@ -109,6 +109,10 @@ class JobApplication(models.Model):
     applicant = models.ForeignKey('account.Applicant',
                                   on_delete=models.CASCADE,
                                   related_name='jobApplications', blank=True)
+    job = models.ForeignKey('Job',
+                            on_delete=models.CASCADE,
+                            related_name='jobs')
+    apply_time = models.DateField(auto_now_add=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=20)
     email = models.EmailField(max_length=254)
@@ -126,4 +130,4 @@ class JobApplication(models.Model):
     cv_application = models.FileField()
 
     def __str__(self):
-        return self.applicant
+        return self.first_name

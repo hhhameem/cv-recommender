@@ -64,7 +64,25 @@
         <li class="dropdown"> <a href="contact.html">Contact</a> </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="br-right"><a class="btn-signup red-btn" href=""><i class="login-icon ti-user"></i>Login</a></li>
+        <li class="dropdown sign-up">
+        <!-- ================ Navbar profile photo ======================= -->
+          {% if request.user.applicant.image %}
+            <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+              <img src="{{ request.user.applicant.image.url }}" class="img-responsive img-circle" alt="">
+              {{ request.user }} 
+            </a>
+          {% else %}
+            <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+              <img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">
+              {{ request.user }} 
+            </a>
+          {% endif %}
+          <!-- ================ End Navbar profile photo ======================= -->
+          <ul class="dropdown-menu animated fadeOutUp">
+            <li><a href="{% url 'applicantdashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>

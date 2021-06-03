@@ -71,11 +71,26 @@
             <li class="dropdown"> <a href="contact.html">Contact</a> </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="br-right"><a class="btn-signup red-btn" href="javascript:void(0)" data-toggle="modal"
-                data-target="#signin"><i class="login-icon ti-user"></i>Login</a></li>
-            <li class="sign-up"><a class="btn-signup red-btn" href="signup.html"><span
-                  class="ti-briefcase"></span>Register</a></li>
+        <li class="dropdown sign-up">
+        <!-- ================ Navbar profile photo ======================= -->
+          {% if request.user.applicant.image %}
+            <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+              <img src="{{ request.user.applicant.image.url }}" class="img-responsive img-circle" alt="">
+              {{ request.user }} 
+            </a>
+          {% else %}
+            <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+              <img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">
+              {{ request.user }} 
+            </a>
+          {% endif %}
+          <!-- ================ End Navbar profile photo ======================= -->
+          <ul class="dropdown-menu animated fadeOutUp">
+            <li><a href="{% url 'applicantdashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
           </ul>
+        </li>
+      </ul>
         </div>
       </div>
     </nav>
@@ -150,7 +165,6 @@
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <label>Education</label>
                   <select multiple class="wide form-control form-select" name="education_application">
-                    <option selected>Open this select menu</option>
                     <option value="Post Graduate">Post Graduate</option>
                     <option value="Graduate">Graduate</option>
                     <option value="HSC">HSC</option>
@@ -290,15 +304,6 @@
     <script src="{% static 'assets/plugins/aos-master/aos.js' %}"></script>
     <script src="{% static 'assets/plugins/nice-select/js/jquery.nice-select.min.js' %}"></script>
     <script src="{% static 'assets/js/custom.js' %}"></script>
-    <script>
-      $('#myTab a').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-      })
-    </script>
-    <script>
-      $('#reservation-date').dateDropper();
-    </script>
     <script>
       $(window).load(function () {
         $(".page_preloader").fadeOut("slow");;

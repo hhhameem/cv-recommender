@@ -12,6 +12,5 @@ class RecruiterAdmin(admin.ModelAdmin):
 
 @admin.register(Applicant)
 class ApplicantAdmin(admin.ModelAdmin):
-    list_display = ('user', 'phone', 'work_exp',
-                    'summary', 'gender', 'address', 'dob', 'language', 'website', 'category', 'image')
+    list_display = ('user', 'phone', 'gender', 'dob', 'category')
     search_fields = ('user', 'phone')

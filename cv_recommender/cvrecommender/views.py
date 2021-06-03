@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.core.paginator import Paginator
 from django.core.paginator import Paginator
 import datetime
@@ -87,6 +88,8 @@ def home(request):
     return render(request, 'index.html', context)
 
 
+# @login_required(login_url='login')
+# @allowed_users(allowed_group=['applicant'])
 def allPublishedJobs(request, job_cat=None):
     if job_cat:
         all_jobs = Job.published.filter(
@@ -102,6 +105,8 @@ def allPublishedJobs(request, job_cat=None):
     return render(request, 'job_layout.html', context)
 
 
+# @login_required(login_url='login')
+# @allowed_users(allowed_group=['applicant'])
 def allCategories(request):
     sorted_cat_dict, sliced_dict, top_3 = \
         sort_dict_and_return(Job.objects.all())
@@ -120,7 +125,8 @@ def allCategories(request):
 #     context = {'all_jobs': all_jobs}
 #     return render(request, 'job_layout.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_group=['applicant'])
 def jobDetail(request, job_slug):
     job = get_object_or_404(Job, slug=job_slug)
     related_jobs = Job.published.filter(job_category=job.job_category)\

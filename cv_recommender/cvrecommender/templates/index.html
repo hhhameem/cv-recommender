@@ -37,23 +37,24 @@
 	</div>
     <div class="collapse navbar-collapse" id="navbar-menu">
       <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
-        <li class="dropdown active"> <a href="index.html">Home</a> </li>
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employer</a>
+        <li class="dropdown active"> <a href="{% url 'home' %}">Home</a> </li>
+        <li class="dropdown"> <a href="{% url 'allPublishedJobs' %}" >Jobs</a> </li>
+        <li class="dropdown"> <a href="" class="dropdown-toggle" data-toggle="dropdown">Category</a>
           <ul class="dropdown-menu animated fadeOutUp">
-            <li><a href="employer.html">Employer</a></li>
-            <li><a href="employer-detail.html">Employer Detail</a></li>
-            <li><a href="create-company.html">Create Company</a></li>
-            <li><a href="manage-resume.html">Manage Resume</a></li>
-            <li><a href="add-job.html">Add Job</a></li>
-            <li><a href="resume-detail.html">Resume Detail</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Candidate</a>
-          <ul class="dropdown-menu animated fadeOutUp">
-            <li><a href="candidate.html">Candidate</a></li>
-            <li><a href="browse-job.html">Browse Jobs</a></li>
-            <li><a href="manage-job.html">Manage Jobs</a></li>
-            <li><a href="browse-category.html">Browse Categories</a></li>
+            {% for key, value in sliced_dict.items %}
+              <li><a href="{% url 'jobCategory' key %}">{{ key }}</a></li>
+            {% empty %}
+              <li>Sorry, NO Category found!!!</li>
+            {% endfor %}
+            {% comment %} <li><a href="candidate.html">Software Engineering</a></li>
+            <li><a href="browse-job.html">Web Design and Development</a></li>
+            <li><a href="manage-job.html">Data Science and Analytics</a></li>
+            <li><a href="browse-category.html">Graphic Design</a></li>
+            <li><a href="candidate.html">Software Quality Assurance</a></li>
+            <li><a href="browse-job.html">Network and System Admin</a></li>
+            <li><a href="manage-job.html">Information Technology</a></li>
+            <li><a href="browse-category.html">Cloud Computing and Engineering</a></li>
+            <li><a href="browse-category.html">Cyber Security</a></li> {% endcomment %}
           </ul>
         </li>
         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
@@ -67,8 +68,30 @@
         <li class="dropdown"> <a href="contact.html">Contact</a> </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="br-right"><a class="btn-signup red-btn" href="{% url 'login' %}"><i class="login-icon ti-user"></i>Login</a></li>
+        {% if request.user.is_authenticated %}
+          <li class="dropdown sign-up">
+            <!-- ================ Navbar profile photo ======================= -->
+              {% if request.user.applicant.image %}
+                <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+                  <img src="{{ request.user.applicant.image.url }}" class="img-responsive img-circle" alt="">
+                  {{ request.user }} 
+                </a>
+              {% else %}
+                <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+                  <img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">
+                  {{ request.user }} 
+                </a>
+              {% endif %}
+              <!-- ================ End Navbar profile photo ======================= -->
+              <ul class="dropdown-menu animated fadeOutUp">
+                <li><a href="{% url 'applicantdashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+              </ul>
+            </li>
+        {% else %}
+          <li class="br-right"><a class="btn-signup red-btn" href="{% url 'login' %}"><i class="login-icon ti-user"></i>Login</a></li>
         <li class="sign-up"><a class="btn-signup red-btn" href="{% url 'register' %}"><span class="ti-briefcase"></span>Register</a></li>
+        {% endif %}
       </ul>
     </div>
   </div>
@@ -162,6 +185,8 @@
             </div>
           </div>
         </div>
+      {% empty %}
+        <h3 class="text-danger text-center">Sorry, NO Jobs found!!!</h3>
       {% endfor %}
     </div> 
 
@@ -248,6 +273,8 @@
             </div>
           </a>
         </div>
+      {% empty %}
+        <h3 class="text-danger text-center">Sorry, NO Categories found!!!</h3>
       {% endfor %}
 		  <div class="col-md-12 mrg-top-20 text-center">
 			<a href="{% url 'allCategories' %}" class="btn theme-btn btn-m">View All Categories</a>
