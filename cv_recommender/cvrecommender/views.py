@@ -180,3 +180,16 @@ def apply(request, job_slug):
 
     return render(request, 'apply.html', {'application_form': application_form,
                                           'job': job})
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_group=['applicant'])
+def allappliedjobs(request):
+    applied_jobs = JobApplication.objects.filter(
+        applicant=request.user.applicant).order_by('apply_time')
+
+    paginator = Paginator(applied_jobs, 3)
+    page = request.GET.get('page')
+    applied_jobs = paginator.get_page(page)
+
+    return render(request, 'applied_job_list.html', {'applied_jobs': applied_jobs})
