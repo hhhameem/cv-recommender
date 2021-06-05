@@ -16,8 +16,8 @@ class JobAdmin(admin.ModelAdmin):
 
 @admin.register(JobApplication)
 class JobApplicationAdmin(admin.ModelAdmin):
-    list_display = ('applicant', 'job', 'first_name', 'last_name',
-                    'email', 'phone',)
+    list_display = ('applicant', 'job', 'score', 'first_name',
+                    'email', 'phone', 'apply_time')
     list_filter = ('apply_time',)
     search_fields = ('applicant', 'job', 'email')
     ordering = ('apply_time',)

@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
+from django.core.exceptions import PermissionDenied
 
 # def unauthenticated_user(view_function):
 #     def wrapper_function(request, *args, **kwargs):
@@ -32,10 +32,12 @@ def allowed_users(allowed_group=[]):
                 if group in allowed_group:
                     return view_function(request, *args, **kwargs)
                 else:
-                    if group == 'applicant':
-                        return redirect('applicantdashboard')
-                    elif group == 'recruiter':
-                        return redirect('recruiterdashboard')
+                    # if group == 'applicant':
+                    #     return redirect('applicantdashboard')
+                    # elif group == 'recruiter':
+                    # #     return redirect('recruiterdashboard')
+                    # raise PermissionDenied
+                    return HttpResponse('You are not allowed and this is yet to be edited')
             else:
                 return redirect('login')
         return wrapper_function

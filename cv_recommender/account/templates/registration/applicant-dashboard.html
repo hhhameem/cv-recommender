@@ -33,38 +33,14 @@
   <div class="container"> 
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
-      <a class="navbar-brand" href="index.html"> <img src="assets/img/logo.png" class="logo logo-display" alt=""> <img src="assets/img/logo.png" class="logo logo-scrolled" alt=""> </a> 
-	</div>
+      <a class="navbar-brand" href="index.html"> <img src="{% static 'assets/img/logo.png' %}" class="logo logo-display" alt=""> 
+        <img src="{% static 'assets/img/logo.png' %}" class="logo logo-scrolled" alt="">
+      </a> 
+	  </div>
     <div class="collapse navbar-collapse" id="navbar-menu">
       <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
-        <li class="dropdown"> <a href="index.html">Home</a> </li>
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employer</a>
-          <ul class="dropdown-menu animated fadeOutUp">
-            <li><a href="employer.html">Employer</a></li>
-            <li><a href="employer-detail.html">Employer Detail</a></li>
-            <li><a href="create-company.html">Create Company</a></li>
-            <li><a href="manage-resume.html">Manage Resume</a></li>
-            <li><a href="add-job.html">Add Job</a></li>
-            <li><a href="resume-detail.html">Resume Detail</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Candidate</a>
-          <ul class="dropdown-menu animated fadeOutUp">
-            <li><a href="candidate.html">Candidate</a></li>
-            <li><a href="browse-job.html">Browse Jobs</a></li>
-            <li><a href="manage-job.html">Manage Jobs</a></li>
-            <li><a href="browse-category.html">Browse Categories</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
-          <ul class="dropdown-menu animated fadeOutUp">
-            <li><a href="profile-settings.html">Profile Settings</a></li>
-            <li><a href="job-detail.html">Job Detail</a></li>
-            <li><a href="job-layout-one.html">Job Layout One</a></li>
-            <li><a href="404.html">404</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"> <a href="contact.html">Contact</a> </li>
+        <li class="selected"> <a href="{% url 'applicantdashboard' %}">Dashboard</a> </li>
+        {% comment %} <li> <a href="{% url '' %}">Applied jobs</a> </li> {% endcomment %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown sign-up"> 
@@ -83,8 +59,6 @@
           <!-- ================ End Navbar profile photo ======================= -->
           <ul class="dropdown-menu animated fadeOutUp">
             <li><a href="{% url 'applicantdashboard' %}">Dashboard</a></li>
-            <li><a href="create-company.html">Create Company</a></li>
-            <li><a href="create-resume.html">Create Resume</a></li>
             <li><a href="{% url 'logout' %}">Log Out</a></li>
           </ul>
         </li>
@@ -137,11 +111,17 @@
         <div id="dashboard_listing_blcok">
 		  <div class="col-md-6 col-sm-6">
 			<div class="statusbox">
-			  <h3>Jobs Applied Today</h3>
+			  <h3>Last Job Applied</h3>
 			  <div class="statusbox-content">
 				<p class="ic_status_item ic_col_one"><i class="fa fa-briefcase"></i></p>
-				<h2>0</h2>
-				<span>Updated 02 Jan 2021</span> 
+				{% if latest %}
+          <h2>{{ latest }}</h2>
+				  <span>Updated On : {{ latest.apply_time }}</span> 
+        {% else %}
+          <h2></h2>
+				  <span>Updated On : </span> 
+        {% endif %}
+        
 			  </div>
 			</div>
 		  </div>
@@ -150,8 +130,13 @@
 			  <h3>Total Jobs Applied</h3>
 			  <div class="statusbox-content">
 				<p class="ic_status_item ic_col_one"><i class="fa fa-briefcase"></i></p>
-				<h2>3</h2>
-				<span>Updated 02 Jan 2021</span> 
+				{% if latest %}
+          <h2>{{ total }}</h2>
+				  <span>Updated On : {{ latest.apply_time }}</span> 
+        {% else %}
+          <h2>{{ total }}</h2>
+				  <span>Updated On : </span> 
+        {% endif %}
 			  </div>
 			</div>
 		  </div>

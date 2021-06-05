@@ -8,7 +8,7 @@ from datetime import date
 from custom_decorators.custom_decorator import allowed_users
 from .forms import CreateUserForm, LoginUserForm, UserEditForm, ApplicantEditForm, RecruiterEditForm
 from .models import Applicant, Recruiter
-from cvrecommender.models import Job
+from cvrecommender.models import Job, JobApplication
 # Create your views here.
 
 
@@ -77,19 +77,34 @@ def userlogout(request):
 @login_required(login_url='login')
 @allowed_users(allowed_group=['applicant'])
 def applicantdashboard(request):
-    return render(request, 'registration/applicant-dashboard.html')
+    applied = JobApplication.objects.filter(
+        applicant=request.user.applicant)
+    if applied:
+        total = applied.count()
+        latest = applied.latest('apply_time')
+    else:
+        total = 0
+        latest = None
+    print(total, latest)
+    context = {'total': total, 'latest': latest}
+
+    return render(request, 'registration/applicant-dashboard.html', context)
 
 
 @login_required(login_url='login')
 @allowed_users(allowed_group=['recruiter'])
 def recruiterdashboard(request):
-    total = Job.objects.filter(recruiter=request.user.recruiter).count()
+    my_all_jobs = Job.objects.filter(recruiter=request.user.recruiter)
+    total = my_all_jobs.count()
+    # total = Job.objects.filter(recruiter=request.user.recruiter).count()
     current = Job.published.filter(recruiter=request.user.recruiter).count()
     if total > 0:
-        last_published = Job.objects.filter(recruiter=request.user.recruiter)\
-            .latest('publish')
-        last_edited = Job.objects.filter(recruiter=request.user.recruiter)\
-            .latest('last_modified')
+        # last_published = Job.objects.filter(recruiter=request.user.recruiter)\
+        #     .latest('publish')
+        # last_edited = Job.objects.filter(recruiter=request.user.recruiter)\
+        #     .latest('last_modified')
+        last_published = my_all_jobs.latest('publish')
+        last_edited = my_all_jobs.latest('last_modified')
     else:
         last_published = date.today()
         last_edited = date.today()

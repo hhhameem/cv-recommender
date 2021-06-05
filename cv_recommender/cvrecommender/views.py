@@ -76,20 +76,21 @@ def allJobs(request):
 
 
 def home(request):
-    all_jobs = Job.objects.all()
     latest_jobs = Job.published.all().order_by('-publish')[:8]
     job_number = Job.published.all().count()
 
-    sorted_cat_dict, sliced_dict, top_3 = sort_dict_and_return(all_jobs)
+    sorted_cat_dict, sliced_dict, top_3 = \
+        sort_dict_and_return(Job.objects.all())
 
     context = {'job_number': job_number, 'latest_jobs': latest_jobs,
-               'sliced_dict': sliced_dict, 'top_3': top_3}
+               'sliced_dict': sliced_dict, 'top_3': top_3,
+               'sorted_cat_dict': sorted_cat_dict}
 
     return render(request, 'index.html', context)
 
 
-# @login_required(login_url='login')
-# @allowed_users(allowed_group=['applicant'])
+@login_required(login_url='login')
+@allowed_users(allowed_group=['applicant'])
 def allPublishedJobs(request, job_cat=None):
     if job_cat:
         all_jobs = Job.published.filter(
@@ -105,8 +106,8 @@ def allPublishedJobs(request, job_cat=None):
     return render(request, 'job_layout.html', context)
 
 
-# @login_required(login_url='login')
-# @allowed_users(allowed_group=['applicant'])
+@login_required(login_url='login')
+@allowed_users(allowed_group=['applicant'])
 def allCategories(request):
     sorted_cat_dict, sliced_dict, top_3 = \
         sort_dict_and_return(Job.objects.all())
@@ -157,16 +158,19 @@ def apply(request, job_slug):
         if application_form.is_valid():
             application_form_obj = application_form.save(commit=False)
             application_form_obj.applicant = request.user.applicant
+            application_form_obj.job = job
             job.applicant.add(request.user.applicant)
             application_form_obj.save()
             job.save()
             messages.success(request, 'You application has\
                             submitted successfully')
-            return redirect('editapplicantprofile')
+            return redirect('applicantdashboard')
         else:
             messages.error(request, 'Please input valid data')
-            return render(request, 'apply.html', {'application_form': application_form})
+            return render(request, 'apply.html', {'application_form': application_form,
+                                                  'job': job})
     else:
         application_form = JobApplicationForm()
 
-    return render(request, 'apply.html', {'application_form': application_form})
+    return render(request, 'apply.html', {'application_form': application_form,
+                                          'job': job})

@@ -109,6 +109,9 @@
 
     <!-- ======================= Start Apply to Job ===================== -->
     <section class="create-job padd-top-80 padd-bot-80">
+      <div class="container padd-bot-50">
+        <h4 class="text-center">You are applying for the post of: <span class="text-white bg-info font-italic">{{ job.title }}</span></h4> 
+      </div>
       <div class="container" data-aos="fade-up">
         {% if application_form.errors %}
             {% for field in application_form %}
@@ -188,12 +191,12 @@
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <label>Relevant Experience</label>
                   <input type="number" class="form-control" name="related_experience_application"
-                    placeholder="Either 0 or more">
+                    placeholder="Either 0 or More">
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <label>Total Experience</label>
                   <input type="number" class="form-control" name="total_experience_application"
-                    placeholder="Either 0 or more">
+                    placeholder="Either 0 or More">
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12 m-clear">
                   <label>CV (Only PDF)</label>
@@ -203,8 +206,7 @@
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <label>Note(Optional)</label>
-                  <textarea class="form-control" name="note_application" placeholder="Skills Required" cols="4"
-                    rows="2"></textarea>
+                  <textarea class="form-control" name="note_application" cols="4" rows="2"></textarea>
                 </div>
               </div>
             </div>

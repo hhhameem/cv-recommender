@@ -128,6 +128,8 @@ class JobApplication(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(15)])
     note_application = models.TextField(blank=True, null=True)
     cv_application = models.FileField()
+    score = models.DecimalField(max_digits=6, decimal_places=3,
+                                default=0.0)
 
     def __str__(self):
-        return self.first_name
+        return self.job.title
