@@ -133,6 +133,12 @@ def jobDetail(request, job_slug):
     related_jobs = Job.published.filter(job_category=job.job_category)\
         .exclude(id=job.id).order_by('-publish')[:4]
 
+    applied = False
+    applicants = Job.objects.values_list(
+        'applicant', flat=True).filter(slug=job_slug)
+    if request.user.applicant.pk in applicants:
+        applied = True
+
     skill_bonus = []
     skill_req = job.skill_req.split(',')
     responsibility = job.responsibility.split('.')
@@ -142,7 +148,7 @@ def jobDetail(request, job_slug):
 
     context = {'job': job, 'skill_req': skill_req,
                'skill_bonus': skill_bonus, 'responsibility': responsibility,
-               'description': description, 'related_jobs': related_jobs}
+               'description': description, 'related_jobs': related_jobs, 'applied': applied}
 
     return render(request, 'job_detail.html', context)
 

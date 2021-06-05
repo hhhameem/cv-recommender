@@ -85,9 +85,9 @@ class Job(models.Model):
     last_modified = models.DateField(auto_now=True)
     recruiter = models.ForeignKey('account.Recruiter',
                                   on_delete=models.CASCADE,
-                                  related_name='jobs')
+                                  related_name='recruiters')
     applicant = models.ManyToManyField('account.Applicant',
-                                       related_name='jobs', blank=True)
+                                       related_name='applicants', blank=True)
 
     objects = models.Manager()         # default manager
     published = PublishedManager()    # custom manager for all published job post
@@ -108,7 +108,7 @@ class Job(models.Model):
 class JobApplication(models.Model):
     applicant = models.ForeignKey('account.Applicant',
                                   on_delete=models.CASCADE,
-                                  related_name='jobApplications', blank=True)
+                                  related_name='jobapplicants', blank=True)
     job = models.ForeignKey('Job',
                             on_delete=models.CASCADE,
                             related_name='jobs')

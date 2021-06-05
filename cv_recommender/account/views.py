@@ -85,7 +85,7 @@ def applicantdashboard(request):
     else:
         total = 0
         latest = None
-    print(total, latest)
+
     context = {'total': total, 'latest': latest}
 
     return render(request, 'registration/applicant-dashboard.html', context)

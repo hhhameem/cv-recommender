@@ -116,7 +116,11 @@
               {% endif %}
               <h4 class="meg-0">{{ job.title }}</h4>
               <div class="text-center">
-                <a href="{% url 'apply' job.slug %}" class="btn-job theme-btn job-apply">Apply Now</a>
+                {% if applied %}
+                  <button class="btn btn-success" disabled>Applied</button>
+                {% else %}
+                  <a href="{% url 'apply' job.slug %}" class="btn-job theme-btn job-apply">Apply Now</a>
+                {% endif %}
               </div>
             </div>
             <div class="col-md-8 user_job_detail">
