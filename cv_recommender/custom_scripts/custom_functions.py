@@ -23,3 +23,16 @@ def sort_dict_and_return(all_jobs):
     top_3 = dict(itertools.islice(sorted_cat_dict.items(), 3))
 
     return sorted_cat_dict, sliced_dict, top_3
+
+
+# function for converting the strings into list and removing unwanted spaces
+def convert_to_list(data_to_convert):
+    list_to_return = []
+    if data_to_convert == None:
+        return 'None'
+    else:
+        remove_space_and_join = ' '.join(data_to_convert.split())
+        splitted_data = remove_space_and_join.split(',')
+        for item in splitted_data:
+            list_to_return.append(item.strip().lower())
+        return list_to_return

@@ -44,9 +44,9 @@ class JobApplicationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(JobApplicationForm, self).__init__(*args, **kwargs)
-        self.fields['first_name'].widget.attrs['readonly'] = True
-        self.fields['last_name'].widget.attrs['readonly'] = True
-        self.fields['email'].widget.attrs['readonly'] = True
+        # self.fields['first_name'].widget.attrs['readonly'] = True
+        # self.fields['last_name'].widget.attrs['readonly'] = True
+        # self.fields['email'].widget.attrs['readonly'] = True
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
 

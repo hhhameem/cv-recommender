@@ -126,10 +126,9 @@ class JobApplication(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(15)])
     total_experience_application = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(15)])
+    score = models.FloatField(default=0.0)
     note_application = models.TextField(blank=True, null=True)
     cv_application = models.FileField()
-    score = models.DecimalField(max_digits=6, decimal_places=3,
-                                default=0.0)
 
     def __str__(self):
         return self.job.title

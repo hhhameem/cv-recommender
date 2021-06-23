@@ -8,10 +8,11 @@ import datetime
 from .forms import JobPostForm, EditJobForm, JobApplicationForm
 from .models import Job, JobApplication
 from custom_decorators.custom_decorator import allowed_users
-from custom_scripts.custom_functions import sort_dict_and_return
-
+from custom_scripts.custom_functions import sort_dict_and_return, convert_to_list
+from custom_scripts.scoring import score_of_an_applicant
 
 # Create your views here.
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_group=['recruiter'])
@@ -156,7 +157,16 @@ def jobDetail(request, job_slug):
 @login_required(login_url='login')
 @allowed_users(allowed_group=['applicant'])
 def apply(request, job_slug):
+    job_list = []
+    application_list = []
     job = get_object_or_404(Job, slug=job_slug)
+    job_list.append(convert_to_list(job.skill_req))
+    job_list.append(convert_to_list(job.skill_bonus))
+    job_list.append(convert_to_list(job.min_education))
+    job_list.append(float(job.cgpa))
+    job_list.append(job.experience)
+
+    print('This is JOB: ', job_list)
 
     if request.method == 'POST':
         application_form = JobApplicationForm(data=request.POST,
@@ -166,6 +176,20 @@ def apply(request, job_slug):
             application_form_obj.applicant = request.user.applicant
             application_form_obj.job = job
             job.applicant.add(request.user.applicant)
+            application_list.append(convert_to_list(
+                application_form_obj.skill_req_application))
+            application_list.append(convert_to_list(
+                application_form_obj.skill_bonus_application))
+            application_list.append(convert_to_list(
+                application_form_obj.education_application))
+            application_list.append(
+                float(application_form_obj.cgpa_application))
+            application_list.append(
+                application_form_obj.related_experience_application)
+
+            print('This is Application: ', application_list)
+            application_form_obj.score = score_of_an_applicant(
+                job_list, application_list)
             application_form_obj.save()
             job.save()
             messages.success(request, 'You application has\
