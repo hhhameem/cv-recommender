@@ -15,5 +15,9 @@ urlpatterns = [
     path('jobs/jobdetails/<slug:job_slug>/',
          views.jobDetail, name='jobDetail'),
     path('jobs/<slug:job_slug>/apply/', views.apply, name='apply'),
+    path('jobs/<slug:job_slug>/applications/',
+         views.totalApplications, name='totalApplications'),
+    path('jobs/<slug:job_slug>/applications/invite/',
+         views.sendInvitation, name='sendInvitation'),
     path('allappliedjobs/', views.allappliedjobs, name='allappliedjobs'),
 ]

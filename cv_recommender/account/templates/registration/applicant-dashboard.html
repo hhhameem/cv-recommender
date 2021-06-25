@@ -108,7 +108,15 @@
 	  </div>
 
 	  <div class="col-md-9">
-        <div id="dashboard_listing_blcok">
+      {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible show" role="alert">
+          <strong>{{message}}</strong>
+          <button type="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+      <div id="dashboard_listing_blcok">
 		  <div class="col-md-6 col-sm-6">
 			<div class="statusbox">
 			  <h3>Last Job Applied</h3>

@@ -10,6 +10,7 @@ from .models import Job, JobApplication
 from custom_decorators.custom_decorator import allowed_users
 from custom_scripts.custom_functions import sort_dict_and_return, convert_to_list
 from custom_scripts.scoring import score_of_an_applicant
+from custom_scripts.send_invitation_mail import send_mail_to_selected_candidate
 
 # Create your views here.
 
@@ -66,7 +67,7 @@ def currentOpeningJobs(request):
 @allowed_users(allowed_group=['recruiter'])
 def allJobs(request):
     all_jobs = Job.objects.filter(recruiter=request.user.recruiter)\
-        .order_by('-publish')
+        .order_by('-publish', '-status')
     today = datetime.datetime.now()
 
     paginator = Paginator(all_jobs, 10)
@@ -74,6 +75,40 @@ def allJobs(request):
     all_jobs = paginator.get_page(page)
 
     return render(request, 'view_all_job.html', {'all_jobs': all_jobs, 'today': today})
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_group=['recruiter'])
+def totalApplications(request, job_slug):
+    myjob = get_object_or_404(Job, slug=job_slug)
+    candidates = JobApplication.objects.filter(
+        job=myjob.id).order_by('-score', '-related_experience_application',
+                               '-total_experience_application', '-cgpa_application')
+    total_candidates = candidates.count()
+    paginator = Paginator(candidates, 15)
+    page = request.GET.get('page')
+    candidates = paginator.get_page(page)
+    mail_sent = False
+    return render(request, 'all_applicants_per_job.html', {'myjob': myjob, 'candidates': candidates, 'total_candidates': total_candidates, 'mail_sent': mail_sent})
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_group=['recruiter'])
+def sendInvitation(request, job_slug):
+    myjob = get_object_or_404(Job, slug=job_slug)
+    candidates = JobApplication.objects.filter(
+        job=myjob.id).order_by('-score', '-related_experience_application',
+                               '-total_experience_application', '-cgpa_application')[:14]
+    total_candidates = candidates.count()
+    paginator = Paginator(candidates, 15)
+    page = request.GET.get('page')
+    candidates = paginator.get_page(page)
+
+    send_mail_to_selected_candidate(myjob, candidates)
+    messages.success(request,
+                     'E-Mail sent successfully to the selected candidates')
+    mail_sent = True
+    return render(request, 'all_applicants_per_job.html', {'myjob': myjob, 'candidates': candidates, 'total_candidates': total_candidates, 'mail_sent': mail_sent})
 
 
 def home(request):
