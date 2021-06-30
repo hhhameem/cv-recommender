@@ -2,8 +2,6 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 
-# app_name = 'account'
-
 urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.userlogin, name='login'),
@@ -24,9 +22,8 @@ urlpatterns = [
          name='applicantdashboard'),
     path('recruiterdashboard/', views.recruiterdashboard,
          name='recruiterdashboard'),
-    path('applicantdashboard/profile-edit/',
-         views.applicantedit, name='editapplicantprofile'),
-    path('recruiterdashboard/profile-edit/',
-         views.recruiteredit, name='editrecruiterprofile'),
-
+    path('applicantdashboard/profile-edit/', views.applicantedit,
+         name='editapplicantprofile'),
+    path('recruiterdashboard/profile-edit/', views.recruiteredit,
+         name='editrecruiterprofile'),
 ]

@@ -6,7 +6,7 @@ from .models import Applicant, Recruiter
 
 Role = (
     ('applicant', 'Applicant'),
-    ('recruiter', 'Recruiter')
+    ('recruiter', 'Recruiter'),
 )
 
 
@@ -22,6 +22,7 @@ class CreateUserForm(UserCreationForm):
         fields = ('username', 'email', 'first_name',
                   'user_type', 'password1', 'password2')
 
+    # check both password field if they match
     def clean_password2(self):
         cd = self.cleaned_data
         if cd['password1'] != cd['password2']:

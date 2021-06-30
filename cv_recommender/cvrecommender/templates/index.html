@@ -6,10 +6,10 @@
 <meta name="description" content="">
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>:: Escort - Job Portal HTML Template ::</title>
+<title>:: Escort - Job Portal ::</title>
 
 <!-- Favicon Icon -->
-<link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}" />
+<link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}"/>
 
 <!-- CSS -->
 <link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -32,13 +32,13 @@
 <nav class="navbar navbar-default navbar-mobile navbar-fixed white no-background bootsnav">
   <div class="container"> 
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
-      <a class="navbar-brand" href="#"> <img src="{% static 'assets/img/logo-light.png' %}" class="logo logo-display" alt=""> <img src="{% static 'assets/img/logo.png' %}" class="logo logo-scrolled" alt=""> </a> 
-	</div>
+      <a class="navbar-brand" href="{% url 'home' %}"> <img src="{% static 'assets/img/logo-light.png' %}" class="logo logo-display" alt=""> <img src="{% static 'assets/img/logo.png' %}" class="logo logo-scrolled" alt=""> </a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button> 
+	  </div>
     <div class="collapse navbar-collapse" id="navbar-menu">
       <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
-        <li class="dropdown active"> <a href="{% url 'home' %}">Home</a> </li>
-        <li class="dropdown"> <a href="{% url 'allPublishedJobs' %}" >Jobs</a> </li>
+        <li class="active"> <a href="{% url 'home' %}">Home</a> </li>
+        <li> <a href="{% url 'allPublishedJobs' %}" >Jobs</a> </li>
         <li class="dropdown"> <a href="" class="dropdown-toggle" data-toggle="dropdown">Category</a>
           <ul class="dropdown-menu animated fadeOutUp">
             {% for key, value in sorted_cat_dict.items %}
@@ -48,15 +48,6 @@
             {% endfor %}
           </ul>
         </li>
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
-          <ul class="dropdown-menu animated fadeOutUp">
-            <li><a href="profile-settings.html">Profile Settings</a></li>
-            <li><a href="job-detail.html">Job Detail</a></li>
-            <li><a href="job-layout-one.html">Job Layout One</a></li>
-            <li><a href="404.html">404</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"> <a href="contact.html">Contact</a> </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if request.user.is_authenticated %}
@@ -67,6 +58,11 @@
                   <img src="{{ request.user.applicant.image.url }}" class="img-responsive img-circle" alt="">
                   {{ request.user }} 
                 </a>
+              {% elif request.user.recruiter.image %}
+                <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+                  <img src="{{ request.user.recruiter.image.url }}" class="img-responsive img-circle" alt="">
+                  {{ request.user }} 
+                </a>
               {% else %}
                 <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
                   <img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">
@@ -75,13 +71,18 @@
               {% endif %}
               <!-- ================ End Navbar profile photo ======================= -->
               <ul class="dropdown-menu animated fadeOutUp">
-                <li><a href="{% url 'applicantdashboard' %}">Dashboard</a></li>
-                <li><a href="{% url 'logout' %}">Log Out</a></li>
+                {% if request.user.applicant %}
+                  <li><a href="{% url 'applicantdashboard' %}">Dashboard</a></li>
+                  <li><a href="{% url 'logout' %}">Log Out</a></li>
+                {% elif request.user.recruiter %}
+                  <li><a href="{% url 'recruiterdashboard' %}">Dashboard</a></li>
+                  <li><a href="{% url 'logout' %}">Log Out</a></li>
+                {% endif %}  
               </ul>
             </li>
         {% else %}
           <li class="br-right"><a class="btn-signup red-btn" href="{% url 'login' %}"><i class="login-icon ti-user"></i>Login</a></li>
-        <li class="sign-up"><a class="btn-signup red-btn" href="{% url 'register' %}"><span class="ti-briefcase"></span>Register</a></li>
+          <li class="sign-up"><a class="btn-signup red-btn" href="{% url 'register' %}"><span class="ti-briefcase"></span>Register</a></li>
         {% endif %}
       </ul>
     </div>
@@ -90,7 +91,7 @@
 <!-- ======================= End Navigation ===================== --> 
 
 <!-- ======================= Start Banner ===================== -->
-<div class="utf_main_banner_area" style="background-image:url(assets/img/slider_bg.jpg);" data-overlay="8">
+<div class="utf_main_banner_area" style="background-image:url('{% static 'assets/img/4.jpg' %}');" data-overlay="8">
   <div class="container">
     <div class="col-md-8 col-sm-10">
       <div class="caption cl-white home_two_slid">
@@ -101,42 +102,12 @@
           {% endfor %}
         </p>
       </div>
-      <form>
+      
+      <form method="post" action="{% url 'search' %}">
+        {% csrf_token %}
         <fieldset class="utf_home_form_one">
-          <div class="col-md-4 col-sm-4 padd-0">
-            <input type="text" class="form-control br-1" placeholder="Search Keywords..." />
-          </div>
-          <div class="col-md-3 col-sm-3 padd-0">
-            <select class="wide form-control br-1">
-              <option data-display="Location">All Country</option>
-              <option value="1">Afghanistan</option>
-              <option value="2">Albania</option>
-              <option value="3">Algeria</option>
-			  <option value="4">Brazil</option>
-              <option value="5">Burundi</option>
-              <option value="6">Bulgaria</option>
-			  <option value="7">Germany</option>
-              <option value="8">Grenada</option>
-              <option value="9">Guatemala</option>
-              <option value="10" disabled>Iceland</option>
-            </select>
-          </div>
-          <div class="col-md-3 col-sm-3 padd-0">
-            <select class="wide form-control">
-              <option data-display="Category">Show All</option>
-              <option value="1">Software Developer</option>
-              <option value="2">Java Developer</option>
-              <option value="3">Software Engineer</option>
-			  <option value="4">Web Developer</option>
-              <option value="5">PHP Developer</option>
-              <option value="6">Python Developer</option>
-			  <option value="7">Front end Developer</option>
-              <option value="8">Associate Developer</option>
-              <option value="9">Back end Developer</option>
-			  <option value="10">XML Developer</option>
-              <option value="11">.NET Developer</option>              
-			  <option value="12" disabled>Marketting Developer</option>
-            </select>
+          <div class="col-md-10 col-sm-10 padd-0">
+            <input type="text" class="form-control br-1" name='searchquery' placeholder="Search Keywords..." />
           </div>
           <div class="col-md-2 col-sm-2 padd-0 m-clear">
             <button type="submit" class="btn theme-btn cl-white seub-btn">Search</button>
@@ -151,12 +122,8 @@
 <!-- ================= Job start ========================= -->
 <section class="padd-top-80 padd-bot-80">
   <div class="container">
-    <div class="row mrg-bot-30">
-      <div class="col-sm-4"></div>
-      <div class="col-sm-4">
-        <h2 class="padd-10 theme-bg text-center">Latest Jobs</h2>
-      </div>
-      <div class="col-sm-4"></div>
+    <div class="col-md-12 mrg-bot-20 text-center">
+      <span class="btn theme-btn btn-m display-4">Latest Jobs</span>
     </div>
     <div class="row"> 
       {% for job in latest_jobs %}
@@ -180,7 +147,6 @@
         <h3 class="text-danger text-center">Sorry, NO Jobs found!!!</h3>
       {% endfor %}
     </div> 
-
     <div class="col-md-12 mrg-top-20 text-center">
       <a href="{% url 'allPublishedJobs' %}" class="btn theme-btn btn-m">Browse All Jobs</a>
     </div>
@@ -194,7 +160,7 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="heading">
           <h2>Job Categories</h2>  
-		  <p>Lorem Ipsum is simply dummy text printing and type setting industry Lorem Ipsum been industry standard dummy text ever since when unknown printer took a galley.</p>	
+		      <p>Lorem Ipsum is simply dummy text printing and type setting industry Lorem Ipsum been industry standard dummy text ever since when unknown printer took a galley.</p>	
         </div>
       </div>
     </div>
@@ -268,14 +234,14 @@
         <h3 class="text-danger text-center">Sorry, NO Categories found!!!</h3>
       {% endfor %}
 		  <div class="col-md-12 mrg-top-20 text-center">
-			<a href="{% url 'allCategories' %}" class="btn theme-btn btn-m">View All Categories</a>
+			  <a href="{% url 'allCategories' %}" class="btn theme-btn btn-m">View All Categories</a>
 		  </div>
 	  </div>
     </div>
   </div>
 </section>
 
-<section class="newsletter theme-bg" style="background-image:url(assets/img/bg-new.png)">
+<section class="newsletter theme-bg" style="background-image:url('{% static 'assets/img/bg-new.png' %}')">
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
@@ -302,8 +268,8 @@
 <footer class="footer">
   <div class="container"> 
     <div class="row">
-	  <div class="col-md-3 col-sm-4">
-        <a href="index.html"><img class="footer-logo" src="assets/img/logo.png" alt=""></a>
+      <div class="col-md-4 col-sm-4">
+        <a href="{% url 'home' %}"><img class="footer-logo" src="{% static 'assets/img/logo.png' %}" alt=""></a>
         <p>Lorem Ipsum is simply dummy text of printing and type setting industry. Lorem Ipsum been industry standard dummy text ever since.</p>
         <!-- Social Box -->
         <div class="f-social-box">
@@ -315,29 +281,19 @@
           </ul>
         </div>        
       </div>	
-      <div class="col-md-9 col-sm-8">
-        <div class="row">
-          <div class="col-md-3 col-sm-6">
-            <h4>Job Categories</h4>
+      <div class="col-md-8 col-sm-8">
+        <div class="row"> 
+          <div class="col-md-4 col-sm-4 col-xs-6">
+            <h4>Job Category</h4>
             <ul>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i> Work from Home</a></li>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i> Internship Job</a></li>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i> Freelancer Job</a></li>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i> Part Time Job</a></li>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i> Full Time Job</a></li>
+              {% for key, value in sliced_dict.items %}
+              <li><a href="{% url 'jobCategory' key %}"><i class="fa fa-angle-double-right"></i> {{ key }}</a></li>
+            {% empty %}
+              <li>Sorry, NO Category found!!!</li>
+            {% endfor %}
             </ul>
           </div>
-          <div class="col-md-3 col-sm-6">
-            <h4>Job Type</h4>
-            <ul>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i> Create Account</a></li>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i> Career Counseling</a></li>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i> My Oficiona</a></li>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i> FAQ</a></li>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i> Report a Problem</a></li>
-            </ul>
-          </div>
-          <div class="col-md-3 col-sm-6">
+          <div class="col-md-4 col-sm-4 col-xs-6">
             <h4>Resources</h4>
             <ul>
               <li><a href="#"><i class="fa fa-angle-double-right"></i> My Account</a></li>
@@ -347,10 +303,10 @@
               <li><a href="#"><i class="fa fa-angle-double-right"></i> Employers</a></li>
             </ul>
           </div>
-		  <div class="col-md-3 col-sm-6">
+		      <div class="col-md-4 col-sm-4 col-xs-6">
             <h4>Quick Links</h4>
             <ul>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i> Jobs Listing</a></li>
+              <li><a href="{% url 'allPublishedJobs' %}"><i class="fa fa-angle-double-right"></i> Jobs Listing</a></li>
               <li><a href="#"><i class="fa fa-angle-double-right"></i> About Us</a></li>
               <li><a href="#"><i class="fa fa-angle-double-right"></i> Contact Us</a></li>
               <li><a href="#"><i class="fa fa-angle-double-right"></i> Privacy Policy</a></li>

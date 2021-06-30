@@ -44,9 +44,6 @@ class JobApplicationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(JobApplicationForm, self).__init__(*args, **kwargs)
-        # self.fields['first_name'].widget.attrs['readonly'] = True
-        # self.fields['last_name'].widget.attrs['readonly'] = True
-        # self.fields['email'].widget.attrs['readonly'] = True
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
 
@@ -75,7 +72,4 @@ JOB_CATEGORY = (
 
 
 class SearchForm(forms.Form):
-    # title = forms.CharField(max_length=30)
-    # city = forms.CharField(max_length=15, choices=CITY)
-    # category = forms.CharField(max_length=50, choices=JOB_CATEGORY)
-    pass
+    searchquery = forms.CharField(max_length=30)

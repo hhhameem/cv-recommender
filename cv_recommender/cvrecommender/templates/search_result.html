@@ -1,0 +1,314 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<head>
+<meta name="author" content="">
+<meta name="description" content="">
+<meta http-equiv="Content-Type"content="text/html;charset=UTF-8"/>
+<meta name="viewport"content="width=device-width, initial-scale=1.0">
+<title>:: Escort - Job Portal HTML Template ::</title>
+
+<!-- Favicon Icon -->
+<link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}" />
+
+<!-- CSS -->
+<link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/plugins/icons/css/icons.css' %}" rel="stylesheet">
+<link href="{% static 'assets/plugins/animate/animate.css' %}" rel="stylesheet">
+<link href="{% static 'assets/plugins/aos-master/aos.css' %}" rel="stylesheet">
+<link href="{% static 'assets/plugins/bootstrap/css/bootsnav.css' %}" rel="stylesheet">
+<link href="{% static 'assets/plugins/nice-select/css/nice-select.css' %}" rel="stylesheet">
+<link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+<link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap" rel="stylesheet"> 
+</head>
+<body class="utf_skin_area">
+<div class="page_preloader"></div>
+<!-- ======================= Start Navigation ===================== -->
+<nav class="navbar navbar-default navbar-mobile navbar-fixed white bootsnav">
+  <div class="container"> 
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'home' %}"> <img src="{% static 'assets/img/logo-light.png' %}" class="logo logo-display" alt=""> <img src="{% static 'assets/img/logo.png' %}" class="logo logo-scrolled" alt=""> </a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button> 
+	  </div>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
+        <li> <a href="{% url 'home' %}">Home</a> </li>
+        {% if not category %}
+          <li class="active"> <a href="{% url 'allPublishedJobs' %}">Jobs</a> </li>
+          <li class="dropdown"> <a href="" class="dropdown-toggle" data-toggle="dropdown">Category</a>
+            <ul class="dropdown-menu animated fadeOutUp">
+              {% for key, value in sorted_cat_dict.items %}
+                <li><a href="{% url 'jobCategory' key %}">{{ key }}</a></li>
+              {% empty %}
+                <li>Sorry, NO Category found!!!</li>
+              {% endfor %}
+            </ul>
+        </li>
+        {% else %}
+          <li> <a href="{% url 'allPublishedJobs' %}">Jobs</a> </li>
+          <li class="dropdown active"> <a href="" class="dropdown-toggle" data-toggle="dropdown">Category</a>
+          <ul class="dropdown-menu animated fadeOutUp">
+            {% for key, value in sorted_cat_dict.items %}
+              <li><a href="{% url 'jobCategory' key %}">{{ key }}</a></li>
+            {% empty %}
+              <li>Sorry, NO Category found!!!</li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% endif %}
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_authenticated %}
+          <li class="dropdown sign-up">
+            <!-- ================ Navbar profile photo ======================= -->
+              {% if request.user.applicant.image %}
+                <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+                  <img src="{{ request.user.applicant.image.url }}" class="img-responsive img-circle" alt="">
+                  {{ request.user }} 
+                </a>
+              {% else %}
+                <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+                  <img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">
+                  {{ request.user }} 
+                </a>
+              {% endif %}
+              <!-- ================ End Navbar profile photo ======================= -->
+              <ul class="dropdown-menu animated fadeOutUp">
+                <li><a href="{% url 'applicantdashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+              </ul>
+            </li>
+        {% else %}
+          <li class="br-right"><a class="btn-signup red-btn" href="{% url 'login' %}"><i class="login-icon ti-user"></i>Login</a></li>
+          <li class="sign-up"><a class="btn-signup red-btn" href="{% url 'register' %}"><span class="ti-briefcase"></span>Register</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- ======================= End Navigation ===================== --> 
+
+<!-- ======================= Start Page Title ===================== -->
+<div class="page-title">
+  <div class="container">
+    <div class="page-caption text-center">
+      <h2>Job In Grid</h2>
+      <p><a href="{% url 'home' %}" title="Home">Home</a> <i class="ti-angle-double-right"></i> Search</p>
+    </div>
+  </div>
+</div>
+<!-- ======================= End Page Title ===================== --> 
+
+<!-- ======================= Search Filter ===================== -->
+<section class="padd-0 padd-top-20 jov_search_block_inner">
+  <div class="row">
+    <div class="container">
+      <form method="post" action="{% url 'search' %}">
+        {% csrf_token %}
+        <fieldset class="search-form">
+          <div class="col-md-10 col-sm-10">
+            <input type="text" class="form-control" name='searchquery' placeholder="Job Title, Keywords or Company Name..." />
+          </div>
+          <div class="col-md-2 col-sm-2 m-clear">
+            <button type="submit" class="btn theme-btn full-width height-50 radius-0">Search</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- ======================= Search Filter ===================== --> 
+
+<!-- ====================== Start Job Detail 2 ================ -->
+<section class="padd-top-5 padd-bot-80">
+  <div class="container"> 
+    <div class="padd-bot-20">
+        {% if searched_query %}
+            <h3>Results For your search query: {{ searched_query }}</h3>
+        {% else %}
+            <h3>Results For your search query: </h3>
+        {% endif %}
+    </div>
+    <!-- ====================== Job List ================ --> 
+    <div class="row"> 
+      {% for job in all_jobs %}
+        <div class="col-md-3 col-sm-6">
+          <div class="utf_grid_job_widget_area"> <span class="job-type full-type">{{ job.job_type }}</span>
+            <div class="u-content">
+              {% if job.logo %}
+                  <div class="avatar box-80"><img class="img-responsive" src="{{ job.logo.url }}" alt="Company Logo"></div>
+                {% else %}
+                <div class="avatar box-80"><img class="img-responsive" src="{% static 'assets/img/company_logo_1.png' %}" alt="Company Logo"></div>
+              {% endif %}
+              <h5><a href="{{ job.get_absolute_url }}">{{ job.title }}</a></h5>
+              <p class="text-muted">Experience: {{ job.experience }} years</p>
+            </div>
+            <div class="utf_apply_job_btn_item">
+              <a href="{{ job.get_absolute_url }}" class="btn job-browse-btn btn-radius br-light">View Details</a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <h3 class="text-danger text-center">Sorry, NO Jobs found!!!</h3>
+      {% endfor %}
+    </div>
+    <div class="clearfix"></div>
+
+    <!-- ====================== Start Paggination ================ --> 
+    <div class="utf_flexbox_area padd-0">
+      <ul class="pagination">
+        {% if all_jobs.has_previous %}
+          <li class="page-item"> <a class="page-link" href="?page=1" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span> </a> 
+          </li>
+          <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-left"></i></span> </a> 
+          </li>
+        {% else %}
+          <li class="page-item"> <a class="page-link" href="?page=1" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span> </a> 
+          </li>
+          <li class="page-item"> <a class="page-link" href="?page=1" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-left"></i></span> </a> 
+          </li>
+        {% endif %}
+
+        {% for job in all_jobs.paginator.page_range %}
+          {% if all_jobs.number == job %}
+            <li class="page-item active"><a class="page-link" href="?page={{ job }}">{{ job }}</a> </li>
+          {% elif job > all_jobs.number|add:'-2' and job < all_jobs.number|add:'2' %}
+            <li class="page-item"><a class="page-link" href="?page={{ job }}">{{ job }}</a> </li> 
+          {% endif %}
+        {% endfor %}
+
+        {% if all_jobs.has_next %}
+          <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.next_page_number }}" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-right"></i></span> </a> 
+          </li>
+          <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.paginator.num_pages }}" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span> </a> 
+          </li>
+        {% else %}
+          <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.paginator.num_pages }}" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-right"></i></span> </a> 
+          </li>
+          <li class="page-item"> <a class="page-link" href="?page={{ all_jobs.paginator.num_pages }}" aria-label="Previous">
+            <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span> </a> 
+          </li>
+        {% endif %}
+      </ul>
+	  </div>
+    <!-- ====================== End Paggination ================ --> 
+  </div>
+</section>
+<!-- ====================== End Job Detail 2 ================ --> 
+
+<section class="newsletter theme-bg" style="background-image:url(assets/img/bg-new.png)">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="heading light">
+          <h2>Subscribe Our Newsletter!</h2>
+          <p>Lorem Ipsum is simply dummy text printing and type setting industry Lorem Ipsum been industry standard dummy text ever since when unknown printer took a galley.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">
+        <div class="newsletter-box text-center">
+          <div class="input-group"> <span class="input-group-addon"><span class="ti-email theme-cl"></span></span>
+            <input type="text" class="form-control" placeholder="Enter your Email...">
+          </div>
+          <button type="button" class="btn theme-btn btn-radius btn-m">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= footer start ========================= -->
+<footer class="footer">
+  <div class="container"> 
+    <div class="row">
+      <div class="col-md-4 col-sm-4">
+        <a href="{% url 'home' %}"><img class="footer-logo" src="{% static 'assets/img/logo.png' %}" alt=""></a>
+        <p>Lorem Ipsum is simply dummy text of printing and type setting industry. Lorem Ipsum been industry standard dummy text ever since.</p>
+        <!-- Social Box -->
+        <div class="f-social-box">
+          <ul>
+            <li><a href="#"><i class="fa fa-facebook facebook-cl"></i></a></li>
+            <li><a href="#"><i class="fa fa-google google-plus-cl"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter twitter-cl"></i></a></li>
+            <li><a href="#"><i class="fa fa-instagram instagram-cl"></i></a></li>
+          </ul>
+        </div>        
+      </div>	
+      <div class="col-md-8 col-sm-8">
+        <div class="row"> 
+          <div class="col-md-4 col-sm-4 col-xs-6">
+            <h4>Job Category</h4>
+            <ul>
+              {% for key, value in sliced_dict.items %}
+              <li><a href="{% url 'jobCategory' key %}"><i class="fa fa-angle-double-right"></i> {{ key }}</a></li>
+            {% empty %}
+              <li>Sorry, NO Category found!!!</li>
+            {% endfor %}
+            </ul>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-6">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> My Account</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Support</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> How It Works</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Underwriting</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Employers</a></li>
+            </ul>
+          </div>
+		      <div class="col-md-4 col-sm-4 col-xs-6">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="{% url 'allPublishedJobs' %}"><i class="fa fa-angle-double-right"></i> Jobs Listing</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> About Us</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Contact Us</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Privacy Policy</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Term & Condition</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>      
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="copyright text-center">
+          <p>Copyright © 2021 All Rights Reserved.</p>		  
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<div><a href="#" class="scrollup">Scroll</a></div>
+
+<!-- Jquery js--> 
+<script src="{% static 'assets/js/jquery.min.js' %}"></script> 
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script> 
+<script src="{% static 'assets/plugins/bootstrap/js/bootsnav.js' %}"></script> 
+<script src="{% static 'assets/js/viewportchecker.js' %}"></script> 
+<script src="{% static 'assets/js/slick.js' %}"></script> 
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap-wysihtml5.js' %}"></script> 
+<script src="{% static 'assets/plugins/aos-master/aos.js' %}"></script> 
+<script src="{% static 'assets/plugins/nice-select/js/jquery.nice-select.min.js' %}"></script> 
+<script src="{% static 'assets/js/custom.js' %}"></script> 
+<script>
+	$(window).load(function() {
+	  $(".page_preloader").fadeOut("slow");;
+	});
+	AOS.init();
+</script>
+</body>
+</html>

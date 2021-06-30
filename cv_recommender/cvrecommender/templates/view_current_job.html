@@ -29,48 +29,48 @@
     <div class="page_preloader"></div>
     <!-- ======================= Start Navigation ===================== -->
     <nav class="navbar navbar-default navbar-mobile navbar-fixed light bootsnav">
-      <div class="container"> 
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
-          <a class="navbar-brand" href="index.html"> <img src="{% static 'assets/img/logo.png' %}" class="logo logo-display" alt=""> 
-            <img src="{% static 'assets/img/logo.png' %}" class="logo logo-scrolled" alt="">
-          </a> 
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-menu">
-          <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
-            <li class="selected"> <a href="{% url 'recruiterdashboard' %}">Dashboard</a> </li>
-            <li> <a href="{% url 'postjob' %}">Post Job</a> </li>
-            <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">View Jobs</a>
-              <ul class="dropdown-menu animated fadeOutUp">
-                <li><a href="{% url 'currentOpeningJobs' %}">Current Openning Jobs</a></li>
-                <li><a href="{% url 'allJobs' %}">All jobs </a></li>
-              </ul>
-            </li>
+  <div class="container"> 
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+      <a class="navbar-brand" href="{% url 'home' %}"> <img src="{% static 'assets/img/logo.png' %}" class="logo logo-display" alt=""> 
+        <img src="{% static 'assets/img/logo.png' %}" class="logo logo-scrolled" alt="">
+      </a> 
+	  </div>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
+        <li> <a href="{% url 'recruiterdashboard' %}">Dashboard</a> </li>
+        <li> <a href="{% url 'postjob' %}">Post Job</a> </li>
+        <li class="dropdown active"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">View Jobs</a>
+          <ul class="dropdown-menu animated fadeOutUp">
+            <li><a href="{% url 'currentOpeningJobs' %}">Current Openning Jobs</a></li>
+            <li><a href="{% url 'allJobs' %}">All jobs </a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown sign-up">
-            <!-- ================ Navbar profile photo ======================= -->
-              {% if request.user.recruiter.image %}
-                <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
-                  <img src="{{ request.user.recruiter.image.url }}" class="img-responsive img-circle" alt="">
-                  {{ request.user }} 
-                </a>
-              {% else %}
-                <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
-                  <img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">
-                  {{ request.user }} 
-                </a>
-              {% endif %}
-              <!-- ================ End Navbar profile photo ======================= -->
-              <ul class="dropdown-menu animated fadeOutUp">
-                <li><a href="{% url 'recruiterdashboard' %}">Dashboard</a></li>
-                <li><a href="{% url 'logout' %}">Log Out</a></li>
-              </ul>
-            </li>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown sign-up">
+        <!-- ================ Navbar profile photo ======================= -->
+          {% if request.user.recruiter.image %}
+            <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+              <img src="{{ request.user.recruiter.image.url }}" class="img-responsive img-circle" alt="">
+              {{ request.user }} 
+            </a>
+          {% else %}
+            <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href=""> 
+              <img src="{% static 'assets/img/user-profile.png' %}" class="img-responsive img-circle" alt="">
+              {{ request.user }} 
+            </a>
+          {% endif %}
+          <!-- ================ End Navbar profile photo ======================= -->
+          <ul class="dropdown-menu animated fadeOutUp">
+            <li><a href="{% url 'recruiterdashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
           </ul>
-        </div>
-      </div>
-    </nav>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
     <!-- ======================= End Navigation ===================== -->
 
     <!-- ======================= Page Title ===================== -->
@@ -78,7 +78,8 @@
       <div class="container">
         <div class="page-caption">
           <h2>Manage Jobs</h2>
-          <p><a href="#" title="Home">Home</a> <i class="ti-angle-double-right"></i> Manage Jobs</p>
+          <p><a href="{% url 'home' %}" title="Home">Home</a> <i class="ti-angle-double-right"></i>
+          <a href="{% url 'recruiterdashboard' %}">Dashboard</a> <i class="ti-angle-double-right"></i> Currently Opening Jobs</p>
         </div>
       </div>
     </div>
@@ -177,76 +178,65 @@
 
     <!-- ================= footer start ========================= -->
     <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3 col-sm-4">
-            <a href="index.html"><img class="footer-logo" src="assets/img/logo.png" alt=""></a>
-            <p>Lorem Ipsum is simply dummy text of printing and type setting industry. Lorem Ipsum been industry
-              standard dummy text ever since.</p>
-            <!-- Social Box -->
-            <div class="f-social-box">
-              <ul>
-                <li><a href="#"><i class="fa fa-facebook facebook-cl"></i></a></li>
-                <li><a href="#"><i class="fa fa-google google-plus-cl"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter twitter-cl"></i></a></li>
-                <li><a href="#"><i class="fa fa-instagram instagram-cl"></i></a></li>
-              </ul>
-            </div>
+  <div class="container"> 
+    <div class="row">
+      <div class="col-md-4 col-sm-4">
+        <a href="{% url 'home' %}"><img class="footer-logo" src="{% static 'assets/img/logo.png' %}" alt=""></a>
+        <p>Lorem Ipsum is simply dummy text of printing and type setting industry. Lorem Ipsum been industry standard dummy text ever since.</p>
+        <!-- Social Box -->
+        <div class="f-social-box">
+          <ul>
+            <li><a href="#"><i class="fa fa-facebook facebook-cl"></i></a></li>
+            <li><a href="#"><i class="fa fa-google google-plus-cl"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter twitter-cl"></i></a></li>
+            <li><a href="#"><i class="fa fa-instagram instagram-cl"></i></a></li>
+          </ul>
+        </div>        
+      </div>	
+      <div class="col-md-8 col-sm-8">
+        <div class="row"> 
+          <div class="col-md-4 col-sm-4 col-xs-6">
+            <h4>Job Category</h4>
+            <ul>
+              {% for key, value in sliced_dict.items %}
+              <li><a href="{% url 'jobCategory' key %}"><i class="fa fa-angle-double-right"></i> {{ key }}</a></li>
+            {% empty %}
+              <li>Sorry, NO Category found!!!</li>
+            {% endfor %}
+            </ul>
           </div>
-          <div class="col-md-9 col-sm-8">
-            <div class="row">
-              <div class="col-md-3 col-sm-6">
-                <h4>Job Categories</h4>
-                <ul>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Work from Home</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Internship Job</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Freelancer Job</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Part Time Job</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Full Time Job</a></li>
-                </ul>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <h4>Job Type</h4>
-                <ul>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Create Account</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Career Counseling</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> My Oficiona</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> FAQ</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Report a Problem</a></li>
-                </ul>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <h4>Resources</h4>
-                <ul>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> My Account</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Support</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> How It Works</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Underwriting</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Employers</a></li>
-                </ul>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <h4>Quick Links</h4>
-                <ul>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Jobs Listing</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> About Us</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Contact Us</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Privacy Policy</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i> Term & Condition</a></li>
-                </ul>
-              </div>
-            </div>
+          <div class="col-md-4 col-sm-4 col-xs-6">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> My Account</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Support</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> How It Works</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Underwriting</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Employers</a></li>
+            </ul>
+          </div>
+		      <div class="col-md-4 col-sm-4 col-xs-6">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="{% url 'allPublishedJobs' %}"><i class="fa fa-angle-double-right"></i> Jobs Listing</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> About Us</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Contact Us</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Privacy Policy</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Term & Condition</a></li>
+            </ul>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="copyright text-center">
-              <p>Copyright © 2021 All Rights Reserved.</p>
-            </div>
-          </div>
+      </div>      
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="copyright text-center">
+          <p>Copyright © 2021 All Rights Reserved.</p>		  
         </div>
       </div>
-    </footer>
+    </div>
+  </div>
+</footer>
 
     <div><a href="#" class="scrollup">Scroll</a></div>
 

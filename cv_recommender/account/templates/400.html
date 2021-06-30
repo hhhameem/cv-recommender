@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<head>
+<meta name="author" content="">
+<meta name="description" content="">
+<meta http-equiv="Content-Type"content="text/html;charset=UTF-8"/>
+<meta name="viewport"content="width=device-width, initial-scale=1.0">
+<title>:: Escort - Job Portal ::</title>
+
+<!-- Favicon Icon -->
+<link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}" />
+
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}">
+<link href="{% static 'assets/plugins/bootstrap/css/bootsnav.css' %}" rel="stylesheet">
+<link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+<link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap" rel="stylesheet"> 
+
+</head>
+<body class="home-2">
+<div class="wrapper">
+  <section>
+    <div class="container">
+      <div class="error-page padd-top-30 padd-bot-30">
+        <h1 class="mrg-top-15 mrg-bot-0 cl-danger font-150 font-bold">400</h1>
+        <h2 class="mrg-top-10 mrg-bot-5 funky-font font-40">HTTP Bad Request !</h2>
+		    <span>A suspicious operation has been performed. You are requested to go Home Page.</span>
+        <a href="{% url 'home' %}" class="btn theme-btn-trans mrg-top-20">Go To Home Page</a> 
+	  </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

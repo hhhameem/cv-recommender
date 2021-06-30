@@ -22,24 +22,18 @@ from django.core.exceptions import PermissionDenied
 #     return wrapper_function
 
 
+# decorator for access persmission group wise
 def allowed_users(allowed_group=[]):
     def decorator(view_function):
         def wrapper_function(request, *args, **kwargs):
             group = None
             if request.user.groups.exists():
                 group = request.user.groups.all()[0].name
-            # print('group2:', group)
                 if group in allowed_group:
                     return view_function(request, *args, **kwargs)
                 else:
-                    # if group == 'applicant':
-                    #     return redirect('applicantdashboard')
-                    # elif group == 'recruiter':
-                    # #     return redirect('recruiterdashboard')
-                    # raise PermissionDenied
-                    return HttpResponse('You are not allowed and this is yet to be edited')
+                    raise PermissionDenied
             else:
                 return redirect('login')
         return wrapper_function
-
     return decorator

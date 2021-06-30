@@ -113,7 +113,6 @@
                 <th class="text-center">Education</th>
                 <th class="text-center">CGPA</th>
                 <th class="text-center">CV</th>
-                <th class="text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -131,11 +130,6 @@
                         <a href="{{ candidate.cv_application.url }}"><i class="fa fa-download"></i> CV</a>
                     </button>
                   </td>
-                  <td class="text-center">
-                    <button type="button" class="btn btn-success">
-                      <a href="#" data-toggle="tooltip" data-original-title="List Of Applicants">Details</a>
-                    </button>
-                  </td>
                 </tr>
               {% empty %}
                 <td colspan="8" class="text-center">No Application has been submitted yet</td>
@@ -144,7 +138,7 @@
           </table>
           
           {% if total_candidates > 0 and mail_sent == False %}
-            <button type="button" class="btn btn-info btn-lg btn-block">
+            <button type="button" class="btn btn-primary btn-lg btn-block">
               <a href="{% url 'sendInvitation' myjob.slug %}"><span class="text-white">Invite First 15</span></a>
             </button>
           {% elif mail_sent == True %}

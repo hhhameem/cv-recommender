@@ -29,7 +29,7 @@ html {
 	padding: 0;
 }
 body {
-	background: #ffffff;
+	background: #f5f5f4;
 	font-family: 'Montserrat', sans-serif;
 	font-weight: 500;
 	position: relative;
@@ -1998,6 +1998,9 @@ html body .label-default {
 	background-image: -moz-linear-gradient(90deg, #fbfdff 0%, #fbfdff 100%);
 }
 /*------------ Global Setting: Multiple Bg Color For Category ---------*/
+.gr-b {
+	color: #26ae61;
+}
 html body .bg-a {
 	background: #f73d51;
 }
@@ -2620,9 +2623,9 @@ i.login-icon {
 	background-color: #fff;
 	padding: 60px 0 20px 0;
 	border:1px solid #eaeff5;
-	box-shadow: 0 4px 10px 0 rgba(41,128,185,0.07);
-	-webkit-box-shadow: 0 4px 10px 0 rgba(41,128,185,0.07);
-	border-radius: 6px;
+	box-shadow: 0 5px 25px 0 rgba(41,128,185,0.07);
+	-webkit-box-shadow: 0 5px 25px 0 rgba(41,128,185,0.07);
+	border-radius: 10px;
 	text-align: center;
 	overflow: hidden;
 	transition: .7s;
@@ -2634,10 +2637,10 @@ i.login-icon {
 	transition: all 0.5s ease-in-out;
 }
 .utf_grid_job_widget_area:hover .avatar {
-	transition: all 0.5s ease-in-out;
-    -moz-transform: scale(1.06);
-    -webkit-transform: scale(1.06);
-    transform: scale(1.06);
+	transition: all 0.4s ease-in-out;
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }
 .utf_grid_job_widget_area a.btn{
 	border-radius:4px;
@@ -5385,4 +5388,11 @@ label {
     font-size: 13px;
     font-weight: 500;
     margin-top: 10px;
+}
+
+.h-rounded {
+	background: #26ae61;
+	color: #ffffff;
+	padding: 10px;
+	border-radius: 15px 50px 30px 5px;
 }
