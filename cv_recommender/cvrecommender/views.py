@@ -171,6 +171,8 @@ def home(request):
 @login_required(login_url='login')
 @allowed_users(allowed_group=['applicant'])
 def search(request):
+    sorted_cat_dict, sliced_dict, top_3 = \
+        sort_dict_and_return(Job.objects.all())
     if request.method == 'POST':
         searched_query = request.POST['searchquery']
         if searched_query:
@@ -180,12 +182,13 @@ def search(request):
             all_jobs = paginator.get_page(page)
         else:
             all_jobs = []
-        context = {'searched_query': searched_query, 'all_jobs': all_jobs}
+        context = {'searched_query': searched_query, 'all_jobs': all_jobs,
+                   'sorted_cat_dict': sorted_cat_dict}
 
         return render(request, 'search_result.html', context)
     else:
         search_form = SearchForm()
-    context = {'search_form': search_form}
+    context = {'search_form': search_form, 'sorted_cat_dict': sorted_cat_dict}
 
     return render(request, 'search_result.html', context)
 
