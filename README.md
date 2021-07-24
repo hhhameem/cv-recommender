@@ -78,6 +78,7 @@ As you have successfully made the development environment ready you can now test
 -   [CSS](https://en.wikipedia.org/wiki/CSS) - For Styling the markup
 -   [Javascript](https://www.javascript.com/) - For adding Interactivity
 -   [Django](https://www.djangoproject.com/) - For Backend
+-   [SQLite](https://www.sqlite.org/index.html) - For Database
 -   [Python](https://www.python.org/) - For Scripting
 
 # Team Members
