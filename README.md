@@ -1,4 +1,4 @@
-# <p style="text-align: center;">CV Recommender</p>
+# <p align="center">CV Recommender</p>
 
 A web based automated CV Recommended system where Recruiter can Post and Manage jobs and Applicant can apply for their desired jobs and manage their profile. The
 proposed system is designed to save time while shortlisting resumes in a fair
