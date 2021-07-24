@@ -70,7 +70,7 @@ To deploy this project free on [pythonanywhere](https://www.pythonanywhere.com/)
 
 # Usage
 
-As you have successfully made the development environment ready ypu can now test & use this web app under the development server. Just register with your **Email & Password** and explore the website.
+As you have successfully made the development environment ready you can now test & use this web app under the development server. Just register with your **Email & Password** and explore the website.
 
 # Built With
 
@@ -113,3 +113,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 -   [Samuli Natri](https://www.youtube.com/channel/UC_F-PRC-SXbaGj_kmMZSotA)
 -   [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
 -   [othneildrew](https://github.com/othneildrew/Best-README-Template/blob/master/README.md)
+-   and a lot of unknown resources
