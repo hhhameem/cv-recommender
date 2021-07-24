@@ -38,7 +38,7 @@ To use or work on this project you need to **Download** or **Clone** this reposi
 ### To Clone :
 
 ```sh
-   git clone https://github.com/hhhameem/CV-Recommender.git
+git clone https://github.com/hhhameem/CV-Recommender.git
 ```
 
 ## Make your development environment ready
