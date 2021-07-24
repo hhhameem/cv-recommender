@@ -21,8 +21,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    path('', include('cvrecommender.urls')),  # cvrecommender/
     path('account/', include('account.urls')),
-    path('cvrecommender/', include('cvrecommender.urls')),
     path('admin/', admin.site.urls),
 ]
 
