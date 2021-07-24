@@ -45,7 +45,7 @@ git clone https://github.com/hhhameem/CV-Recommender.git
 
 Now, as you have successfully downloaded this repository you need to make your development environment ready to see this project on the development server. Just follow the instructions below:
 
--   Go to the CV_Recommender folder
+-   Go to the CV-Recommender folder
 -   Activate the Virtual Environment
     ```sh
     Scripts\activate.bat
