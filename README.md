@@ -58,10 +58,19 @@ Now, as you have successfully downloaded this repository you need to make your d
     ```sh
     cd cv_recommender
     ```
+-   Now in the **custom_decorators** folder include a file named **email_credential.py** and in that file
+    declare two variables named **my_mail** & **my_pass** and assign your mail and pass to those variable.
+
+    or
+
+    Go to **cv_recommender** and then open **settings.py** and in line number **136** include your **e-mail** and in line number **137** include your **password**.
+
 -   Activate the runserver
+
     ```py
     py manage.py runserver
     ```
+
     and now you can see this live on **localhost**.
 
 ## Deployment
