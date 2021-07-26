@@ -63,7 +63,7 @@ Now, as you have successfully downloaded this repository you need to make your d
 
     or
 
-    Go to **cv_recommender** and then open **settings.py** and in line number **136** include your **e-mail** and in line number **137** include your **password**.
+    Go to **cv_recommender** and then open **settings.py** and **remove** line no **14** and in line number **136** include your **e-mail** and in line number **137** include your **password**. Both email and password needs to be enclosed with **quotation** mark.
 
 -   Activate the runserver
 
